@@ -25,6 +25,9 @@ app.get('/applicants', function(req,res){
   res.render('applicants');
 });
 
+app.post('/applicants', function(req,res){
+  res.render('applicants');
+});
 app.use(function(req,res){
   res.status(404);
   res.render('404');
