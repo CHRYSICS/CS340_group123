@@ -37,14 +37,15 @@
             <th>phone</th>
             <th>address</th>
         </tr>
-        {{#each applicants.rows}}
-        <tr id={{this.id}}>
-            <td class="data">{{this.firstname}}</td>
-            <td class="data">{{this.lastname}}</td>
+        {{#each rows}}
+        <tr id={{this.applicantID}}>
+            <td class="data">{{this.firstName}}</td>
+            <td class="data">{{this.lastName}}</td>
             <td class="data">{{this.email}}</td>
             <td class="data">{{this.phone}}</td>
-            <td class="data">{{this.address}},{{this.city}} {{this.state}}, {{this.zipcode}}</td>
-            <td><button class='edit'>Edit</button></td>
+            <td class="data">{{this.address}},{{this.city}} {{this.state}}, {{this.country}} {{this.zipCode}}</td>
+            <td><a href="/applicantInfo/{{this.applicantID}}">Select</a></td>
+            <td><button class='Update'>Edit</button></td>
             <td><button class='delete'>Delete</button></td>
         </tr>
         {{/each}}
