@@ -1,79 +1,81 @@
 <h1>Employers List</h1>
-
-{{#if updateForm}} <!-- if edit/delete is made -->
-    <h3>Edit Entry</h3>
-    <fieldset>
-        <form id="edit" action="" method="post">
-            Employer ID
-            <input type="text" name="employerID" id="employerID" value="{{employerID}}">
-            <br>
-            Business Name
-            <input type="text" name="businessName" id="businessName" value="{{businessName}}">
-            <br>
-            Email
-            <input type="text" name="email" id="email" value="{{email}}">
-            <br>
-            Phone
-            <input type="text" name="phone" id="phone" value="{{phone}}">
-            <br>
-            Address
-            <input type="text" name="address" id="address" value="{{address}}">
-            <br>
-            City
-            <input type="text" name="city" id="city" value="{{city}}">
-            <br>
-            State
-            <input type="text" name="state" id="state" value="{{state}}">
-            <br>
-            Country
-            <input type="text" name="country" id="country" value="{{country}}">
-            <br>
-            Zip Code
-            <input type="text" name="zipCode" id="zipCode" value="{{zipCode}}">
-            <br>
-     
-
-            <br>
-            <input type="submit" name="updateEmployerButton" value="Update Employer" id="updateemployerButton">
-        </form>
-    </fieldset>
-
-{{else}}
+<div class = "insertForm">
     <h2>Add Employer</h2>
-        <fieldset>
-            <form id="add" action="" method = "get">
-                Employer ID
-                <input type="text" name="employerID" id="employerID">
-                <br>
-                Business Name
-                <input type="text" name="businessName" id="businessName">
-                <br>
-                Email
-                <input type="text" name="email" id="email">
-                <br>
-                Phone
-                <input type="text" name="phone" id="phone">
-                <br>
-                Address
-                <input type="text" name="address" id="address">
-                <br>
-                City
-                <input type="text" name="city" id="city">
-                <br>
-                State
-                <input type="text" name="state" id="state">
-                <br>
-                Country
-                <input type="text" name="country" id="country">
-                <br>
-                Zip Code
-                <input type="text" name="zipCode" id="zipCode">
-                <br>
+        <form id="addEmployer">
+            <label for = "employerID">Employer ID:</label>
+            <br>
+            <input type = "text" name="employerID", placeholder="employer ID">
+            <br>
 
-                <input type = "submit" name="addButton" value="Add Employer" id="addButton">
-            </form>
-        </fieldset>
+            <label for = "businessName">Business Name:</label>
+            <br>
+            <input type="text" name="businessName" placeholder="business name">
+            <br>
+        
+            <label for = "email">Email:</label>
+            <br>
+            <input type="text" name="email" placeholder="email">
+            <br>
+
+            <label for = "phone">Phone:</label>
+            <br>
+            <input type="text" name="phone" placeholder="phone">
+            <br>
+            
+            <label for = "address">Address:</label>
+            <br>
+            <input type="text" name="address" placeholder="address">
+            <br>
+           
+            <label for = "city">City:</label>
+            <br>
+            <input type="text" name="city" placeholder="city">
+            <br>
+
+            <label for = "state">State:</label>
+            <br>>
+            <input type="text" name="state" placeholder="state">
+            <br>
+
+            <label for = "country">Country:</label>>
+            <br>
+            <input type="text" name="country" placeholder="country">
+            <br>
+            
+            <label for = "zipCode">Zip Code:</label>
+            <Br>
+            <input type="text" name="zipCode" placeholder="zipCode">
+            <br>
+
+            <input type = "submit" name="addButton" value="Add Employer" id="addButton">
+        </form>
+    </div>
+
+    <div class ="selectEmployer">
+        <h2>Select Employer:</h2>
+        <table id="employerTable">
+            <tr>
+                <th>Employer ID</th>
+                <th>Business Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Zip Code</th>
+            </tr>
+            {{#each rows}}
+            <tr id={{this.employerID}}
+                <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
+                <td><a href="/employersInfo/{{this.employerID}}">Select</a></td>
+                <td><button class='Update'>Edit</button></td>
+                <td><button class='delete'>Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+
     <h3>Current List of Employers</h3>
         {{results}}
         <div id = "postTable"></div>
-    {{/if}}
