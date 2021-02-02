@@ -1,0 +1,39 @@
+<h1>Job Listings</h1>
+
+{{#if updateForm}} <!-- if edit/delete is made -->
+    <h3>Edit Job Listing</h3>
+    <fieldset>
+        <form id="edit" action="" method = "post">
+            Post ID
+            <input type="text" name="postID" id="postID" value="{{postID}}">
+            <br>
+            Description
+            <input type="text" name="description" id="description" value="{{description}}">
+            <br>
+            EmployerID
+            <input type="text" name="employerID" id="employerID" value="{{employerID}}">
+            <br>
+            <input type="submit" name="updatePostButton" value="Update Post" id="updatePostButton">
+        </form>
+    </fieldset>
+
+{{else}}
+    <h2>Add Post</h2>
+        <fieldset>
+            <form id="add" action="" method = "get">
+            Post ID
+            <input type="text" name="postID" id="postID">
+            <br>
+            Description
+            <input type="text" name="description" id="description">
+            <br>
+            EmployerID
+            <input type="text" name="employerID" id="employerID">
+            <br>
+            <input type = "submit" name="addButton" value="Add Post" id="addButton">
+            </form>
+        </fieldset>
+    <h3>Current Job Listings</h3>
+        {{results}}
+        <div id = "postTable"></div>
+    {{/if}}
