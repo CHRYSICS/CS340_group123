@@ -1,7 +1,7 @@
 <h1>Applicants Page</h1>
 <div class="insertForm">
     <h2>Add Applicant to Database:</h2>
-    <form id="addApplicant">
+    <form id="addApplicant" action="applicants.handlebars" method="POST">
         <label for="fname">First Name:</label>
         <br>
         <input type="text" name="fname" placeholder="first name">
@@ -24,13 +24,14 @@
         <input type="text" name="city" placeholder="city"><br>
         <input type="text" name="country" placeholder="country"><br>
         <input type="text" name="zip" placeholder="zipcode"><br><br>
-        <input type="submit">
+        <input type="submit" value="submit">
     </form>
 </div>
 <div class="selectView">
     <h2>Select Applicant:</h2>
     <table id="applicantTable">
         <tr>
+            <th>applicant ID</th>
             <th>first name</th>
             <th>last name</th>
             <th>email</th>
@@ -39,6 +40,7 @@
         </tr>
         {{#each rows}}
         <tr id={{this.applicantID}}>
+            <td class="data">{{this.applicantID}}</td>
             <td class="data">{{this.firstName}}</td>
             <td class="data">{{this.lastName}}</td>
             <td class="data">{{this.email}}</td>
