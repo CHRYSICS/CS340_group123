@@ -1,3 +1,9 @@
+<ul> Navigation Menu
+    <li><a href="employers">Employers</a></li>
+    <li><a href="posts">Posts</a></li>
+    <li><a href="applicants">Applicants</a></li>
+</ul>
+
 <h1>Job Listings</h1>
 
 <div class = "insertForm">
@@ -15,7 +21,7 @@
     
         <label for = "employerID">Employer ID:</label>
         <br>
-        <input type="text" name="employerID" placeholder="employerID">
+        <input type="text" name="employerID" placeholder="employer ID">
         <br>
 
         <input type = "submit" name="addButton" value="Add Employer" id="addButton">
@@ -24,6 +30,18 @@
 
 <div class ="selectPost">
         <h2>Select Post:</h2>
+        <form id="filterPosts" action="posts.handlebars" method="GET">
+        <h3>Filter By:</h3>
+        <label for="filter">filter by:</label>
+        <select name="filter" id="filter">
+            <option value="postID">post ID</option>
+            <option value="description">description</option>
+            <option value="employerID">employer ID</option>
+        </select>
+        <label for="input">Enter value:</label>
+        <input type="text" name="input" placeholder="text here">
+        <input type="submit" value="filter">
+    </form>
         <table id="postTable">
             <tr>
                 <th>Post ID</th>
