@@ -29,6 +29,21 @@
 </div>
 <div class="selectView">
     <h2>Select Applicant:</h2>
+    <form id="filterApplicants" action="applicants.handlebars" method="GET">
+        <h3>Filter Selection:</h3>
+        <label for="filter">filter by:</label>
+        <select name="filter" id="filter">
+            <option value="fname">first name</option>
+            <option value="lname">last name</option>
+            <option value="email">email</option>
+            <option value="phone">phone</option>
+            <option value="address">first name</option>
+        </select>
+        <label for="input">Enter value:</label>
+        <input type="text" name="input" placeholder="text here">
+        <input type="submit" value="filter">
+        
+    </form>
     <table id="applicantTable">
         <tr>
             <th>applicant ID</th>
