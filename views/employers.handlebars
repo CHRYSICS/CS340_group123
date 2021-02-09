@@ -1,3 +1,9 @@
+<ul> Navigation Menu
+    <li><a href="employers">Employers</a></li>
+    <li><a href="posts">Posts</a></li>
+    <li><a href="applicants">Applicants</a></li>
+</ul>
+
 <h1>Employers List</h1>
 <div class = "insertForm">
     <h2>Add Employer</h2>
@@ -33,49 +39,69 @@
             <br>
 
             <label for = "state">State:</label>
-            <br>>
+            <br>
             <input type="text" name="state" placeholder="state">
             <br>
 
-            <label for = "country">Country:</label>>
+            <label for = "country">Country:</label>
             <br>
             <input type="text" name="country" placeholder="country">
             <br>
             
             <label for = "zipCode">Zip Code:</label>
             <Br>
-            <input type="text" name="zipCode" placeholder="zipCode">
+            <input type="text" name="zipCode" placeholder="zip code">
             <br>
 
             <input type = "submit" name="addButton" value="Add Employer" id="addButton">
         </form>
     </div>
 
-    <div class ="selectEmployer">
-        <h2>Select Employer:</h2>
-        <table id="employerTable">
-            <tr>
-                <th>Employer ID</th>
-                <th>Business Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Country</th>
-                <th>Zip Code</th>
-            </tr>
-            {{#each rows}}
-            <tr id={{this.employerID}}
-                <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
-                <td><a href="/employersInfo/{{this.employerID}}">Select</a></td>
-                <td><button class='Update'>Edit</button></td>
-                <td><button class='delete'>Delete</button></td>
-            </tr>
-            {{/each}}
-        </table>
-    </div>
+<div class ="selectEmployer">
+    <h2>Select Employer:</h2>
+     <form id="filterEmployers" action="employers.handlebars" method="GET">
+        <h3>Filter By:</h3>
+        <label for="filter">filter by:</label>
+        <select name="filter" id="filter">
+            <option value="businessName">business name</option>
+            <option value="email">email</option>
+            <option value="phone">phone</option>
+            <option value="address">first name</option>
+            <option value = "city">city</option>
+            <option value = "state">state</option>
+            <option value = "country">country</option>
+            <option value = "zipCode">zip code</option>
+        </select>
+        <label for="input">Enter value:</label>
+        <input type="text" name="input" placeholder="text here">
+        <input type="submit" value="filter">
+    </form>
+    <table id="employerTable">
+        <tr>
+            <th>Employer ID</th>
+            <th>Business Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Zip Code</th>
+        </tr>
+        {{#each rows}}
+        <tr id={{this.employerID}}
+            <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
+            <td><a href="/employersInfo/{{this.employerID}}">Select</a></td>
+            <td><button class='Update'>Edit</button></td>
+            <td><button class='delete'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
 
-    <h3>Current List of Employers</h3>
-        {{results}}
-        <div id = "postTable"></div>
+<h3>Current List of Employers</h3>
+    {{results}}
+    <div id = "postTable"></div>
+
+ 
+    
