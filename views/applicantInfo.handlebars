@@ -7,6 +7,26 @@
         <li>address: {{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</li>
     </ul>
 </div>
+<div>
+    <h2>Add Resume to Database:</h2>
+    <form id="addResume" action="applicantsInfo.handlebars" method="POST">
+        <label for="file">File:</label>
+        <br>
+        <input type="text" name="file" placeholder="upload resume">
+        <input type="submit" value="upload">
+    </form>
+</div>
+<div>
+    <form id="searchResumes" action="applicantsInfo.handlebars" method="GET">
+        <h2>Filter Selection:</h2>
+        <label for="fileName">By File Name:</label>
+        <input type="text" name="fileName" placeholder="enter file name">
+        <select name="order" id="order">
+            <option value="ASC">ascending</option>
+            <option value="DESC">descending</option>
+        </select>
+    </form>
+</div>
 <div id="resumes">
     <table>
         <tr>
