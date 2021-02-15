@@ -9,10 +9,10 @@
 </div>
 <div>
     <h2>Add Resume to Database:</h2>
-    <form id="addResume" action="applicantsInfo.handlebars" method="POST">
-        <label for="file">File:</label>
+    <form id="addResume" action="/applicantInfo/{{info.applicantID}}" method="POST" enctype="multipart/form-data">
+        <label for="resume">File:</label>
         <br>
-        <input type="text" name="file" placeholder="upload resume">
+        <input type="file" name="resume" required>
         <input type="submit" value="upload">
     </form>
 </div>
@@ -38,7 +38,7 @@
         <tr {{this.resumeID}}>
             <td>{{this.resumeID}}</td>
             <td>{{this.applicantID}}</td>
-            <td>{{this.fileLocation}}</td>
+            <td>{{this.fileName}}</td>
             <td><button class='Update'>Edit</button></td>
             <td><button class='delete'>Delete</button></td>
         </tr>

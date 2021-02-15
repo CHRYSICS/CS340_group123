@@ -1,17 +1,49 @@
 var express = require('express');
+// This includes credentials to access database 
+// (for more information on the DB, look at the './config/schema.sql')
 var mysql = require('./config/dbcon.js');
+
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+
+// Files are uploaded on server local directory, not on database
+// we will store the directory path into the database
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.use(express.json());
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, '/public')));
+// location where uploaded files will be stored
+//app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-// Demo Data (to be replaced with backend)
-var AppRows = [{"applicantID":1, "firstName":"Chris", "lastName":"Eckerson-Keith", "email": "eckersoc@oregonstate.edu", "phone":9871234567, "address": "The Good Place", "city":"Jacksonville", "state":"FL", "country":"US","zipCode":12345}];
-var ResRows = [{"resumeID":1, "applicantID": 1, "fileLocation": "Should be downloadable (soon to come)"}];
+// setup storage engine for uploading files
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    var userDir = './uploads/' + req.params.applicantID + '/';
+    if (!fs.existsSync(userDir)){
+      fs.mkdirSync(userDir);
+    }
+    cb(null, userDir);
+  },
+  filename: (req, file, cb) =>{
+    console.log(file);
+    cb(null, file.originalname);
+  }
+});
+// // file filter (by type: current only docx & pdf)
+// const fileFilter = (req, file, cb) =>{
+//   if(file.mimetype == 'application/msword' || file.mimetype == 'application/pdf'){
+//     cb(null, true);
+//   } else{
+//     cb(null, false);
+//   }
+// }
+// set up upload function
+const upload = multer({storage: storage});
 
 app.get('/',function(req,res){
   res.render('home');
@@ -25,40 +57,64 @@ app.get('/posts', function(req,res){
   res.render('posts');
 });
 
-app.get('/applicants', function(req,res){
+// route to display applicants in database
+app.get('/applicants', function(req, res, next){
   var content = {};
-  // insert sql query here as "AppRows"
-  content.rows = AppRows;
-  //console.log(content);
-  res.render('applicants', content);
+  // retrieve all applicants from database
+  mysql.pool.query("SELECT * FROM `Applicants`", function(err, rows, fields){
+    if(err){
+      next(err);
+      return;
+    } else {
+      content.rows = rows;
+      res.render('applicants', content);
+    }
+  });
 });
 
 app.post('/applicants', function(req,res){
   res.render('applicants');
 });
 
-app.get('/applicantInfo/:applicantID', function(req, res){
+// route to display applicant info and their resumes
+app.get('/applicantInfo/:applicantID', function(req, res , next){
   var id = req.params.applicantID;
   var content = {};
-  // insert select sqlquery by applicantID
-  for (i in AppRows){
-    if(AppRows[i].applicantID == id){
-      content.info = AppRows[i];
-      console.log(content);
-      break;
+  // select applicant info for applicant with id retrieved, limit to one result returned
+  mysql.pool.query("SELECT * FROM Applicants WHERE applicantID=? LIMIT 1", [id], function(err, result){
+    if(err){
+        next(err);
+        return;
     }
-  }
-  // insert select sqlquery for applicant resumes
-  var count = 0;
-  content.resumes = [];
-  for (i in ResRows){
-    if(ResRows[i].applicantID == id){
-      content.resumes[count] = ResRows[i];
-      count++; 
+    else{
+      console.log(result);
+      content.info = result[0];
+      // retrieve applicant resumes
+      mysql.pool.query("SELECT * FROM Resumes WHERE applicantID=?", [id], function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        } else {
+          console.log(rows);
+          content.resumes = rows;
+          res.render('applicantInfo', content);
+        }
+      });
     }
+  });
+});
+
+// upload resume route
+app.post('/applicantInfo/:applicantID', upload.single('resume'), (req, res, next) => {
+  try {
+    console.log(req.file);
+    console.log(req);
+    mysql.pool.query("INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)", [req.params.applicantID, req.file.filename]);
+    res.redirect('back');
+  } catch (error){
+    console.log(error);
   }
-  res.render('applicantInfo', content);
-})
+});
 
 app.use(function(req,res){
   res.status(404);

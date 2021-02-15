@@ -1,0 +1,17 @@
+/*Header links*/
+header ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header li {
+    display: inline;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: rgb(204, 204, 204);
+}
+
+header a{
+    color: #000;
+}

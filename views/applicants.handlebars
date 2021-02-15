@@ -1,34 +1,30 @@
-<ul> Navigation Menu
-    <li><a href="employers">Employers</a></li>
-    <li><a href="posts">Posts</a></li>
-    <li><a href="applicants">Applicants</a></li>
-</ul>
 <h1>Applicants Page</h1>
 <div class="insertForm">
     <h2>Add Applicant to Database:</h2>
-    <form id="addApplicant" action="applicants.handlebars" method="POST">
+    <form id="addApplicant" action="./applicants" method="POST">
         <label for="fname">First Name:</label>
         <br>
-        <input type="text" name="fname" placeholder="first name">
+        <input type="text" name="fname" placeholder="first name" maxlength="100" required>
         <br>
         <label for="lname">Last Name:</label>
         <br>
-        <input type="text" name="lname" placeholder="last name">
+        <input type="text" name="lname" placeholder="last name" maxlength="100" required>
         <br>
         <label for="email">Email:</label>
         <br>
-        <input type="email" name="email" placeholder="email">
+        <input type="email" name="email" placeholder="email" maxlength="100" required>
         <br>
         <label for="phone">Phone Number:</label>
         <br>
-        <input type="tel" name="phone" placeholder="XXX-XXX-XXX">
+        <input type="tel" name="phone" placeholder="XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <br>
         <label for="address">Address:</label>
         <br>
-        <input type="text" name="address" placeholder="street address"><br>
-        <input type="text" name="city" placeholder="city"><br>
-        <input type="text" name="country" placeholder="country"><br>
-        <input type="text" name="zip" placeholder="zipcode"><br><br>
+        <input type="text" name="address" placeholder="street address" maxlength="256" required><br>
+        <input type="text" name="city" placeholder="city" maxlength="100" required><br>
+        <input type="text" name="state" placeholder="state (abbr)" placeholder="XX [A-Z, a-z]" pattern="[A-Za-z]{2}" required><br>
+        <input type="text" name="country" placeholder="country (abbr)" pattern="[A-Za-z]{2}" required><br>
+        <input type="text" name="zipCode" placeholder="zipcode" maxlength="16"><br><br>
         <input type="submit" value="submit">
     </form>
 </div>
