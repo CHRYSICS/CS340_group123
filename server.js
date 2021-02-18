@@ -17,8 +17,6 @@ app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
-// location where uploaded files will be stored
-//app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // setup storage engine for uploading files
 const storage = multer.diskStorage({
@@ -105,10 +103,8 @@ app.get('/applicantInfo/:applicantID', function(req, res , next){
 });
 
 // upload resume route
-app.post('/applicantInfo/:applicantID', upload.single('resume'), (req, res, next) => {
+app.post('/applicantInfo/:applicantID', upload.single('resume'), (req, res) => {
   try {
-    console.log(req.file);
-    console.log(req);
     mysql.pool.query("INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)", [req.params.applicantID, req.file.filename]);
     res.redirect('back');
   } catch (error){
