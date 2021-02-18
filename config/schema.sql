@@ -83,12 +83,17 @@ VALUES (1, 'RavenResume1.docx'),
 
 -- Employers Data
 INSERT INTO Employers (`businessName`, `email`, `phone`, `address`, `city`, `state`, `country`, `zipCode`) 
-VALUES ('Company1', 'company1@example.com', '444-444-4444', '1324 Deviled Way', 'Corvallis', 'OR', 'US', 95000);
+VALUES ('Company1', 'company1@example.com', '444-444-4444', '1324 Deviled Way', 'Corvallis', 'OR', 'US', 95000),
+       ('DinTaiFung', 'dtf@gmail.com', '777-777-7777', '123 La Jolla Dr', 'San Diego', 'CA', 'US', 92126),
+       ('HDBio', 'hdbio@gmail.com', '888-888-8888', '123 Science St', 'San Diego', 'CA', 'US', 92126);
+
 
 -- Posts Data
 INSERT INTO Posts (`description`, `employerID`)
-VALUES ("Don't miss this work opportunity!", 1);
+VALUES ("Don't miss this work opportunity!", 1),
+       ("Seeking Servers!", 2),
+       ("Looking for Qualified Scientists", 3);
 
 -- Responses Data
 INSERT INTO Responses(`postID`, `resumeID`)
-VALUES (1, 1), (1, 4), (1, 3);
+VALUES (1, 1), (1, 4), (1, 3), (2, 3), (3,3);
