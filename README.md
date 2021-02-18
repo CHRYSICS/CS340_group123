@@ -11,5 +11,6 @@ To run:
 node server.js {port number}
 
 Note: './config/dbcon.js' contains example log-in information for connecting to database. Change info to connect to different database.
+
 Note: './config/schema.js' contains the schema for the project. Upload this to database to initalize 
 tables first. This has already been down for the example database provided. 
