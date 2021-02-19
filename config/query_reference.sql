@@ -63,9 +63,6 @@ UPDATE Resumes SET `fileName`=":newFileName_of_FileUploaded" WHERE `resumeID`=":
 
 UPDATE Posts SET `description`=":newTextInput", `employerID`=":employerIDInput" WHERE `postID`=":postInput";
 
--- UPDATE Responses SET `postID`=":numberInput" WHERE `resumeID`=":?";
--- pending, not sure how to "update" composite primary key
-
 -- Delete for each table:
 DELETE FROM Applicants WHERE `applicantID`=":applicantID_rowSelection_DeleteButton";
 DELETE FROM Resumes WHERE `resumeID`=":resumeID_RowSelection_DeleteButton";
