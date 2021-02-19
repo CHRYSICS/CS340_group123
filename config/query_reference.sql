@@ -8,7 +8,12 @@ SELECT * FROM Employers;
 SELECT * FROM Posts;
 
 -- Select Displaying filtered Quieries:
+-- Will try performing by form request where depending on selected filter, will append WHERE statement conditionally
+SELECT * FROM Applicants WHERE ":selectedFilter_conditional"=":input";
+-- Example: "SELECT * FROM Applicants " + route_conditional ("WHERE `firstName`=":formInput")
+-- Else will select Applicants by order
 SELECT * FROM Applicants ORDER BY firstName, lastName, email, city, state, country, zipCode ASC|DESC;
+
 SELECT * FROM Resumes ORDER BY fileName ASC|DESC;
 SELECT * FROM Employers ORDER BY businessName, email, city, zipCode ASC|DESC;
 SELECT * FROM Posts ORDER BY description, employerID ASC|DESC;
