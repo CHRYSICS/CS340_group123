@@ -8,6 +8,10 @@ SELECT * FROM Employers;
 SELECT * FROM Posts;
 
 -- Select Displaying filtered Quieries:
+SELECT * FROM Applicants ORDER BY firstName, lastName, email, city, state, country, zipCode ASC|DESC;
+SELECT * FROM Resumes ORDER BY fileName ASC|DESC;
+SELECT * FROM Employers ORDER BY businessName, email, city, zipCode ASC|DESC;
+SELECT * FROM Posts ORDER BY description, employerID ASC|DESC;
 
 -- Insert for every table:
 -- Applicant values are gathered in post form
