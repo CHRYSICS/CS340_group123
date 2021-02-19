@@ -17,6 +17,7 @@ app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
+app.set('views', path.join(__dirname, "views"));
 
 // setup storage engine for uploading files
 const storage = multer.diskStorage({
