@@ -8,9 +8,9 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 // Files are uploaded on server local directory, not on database
 // we will store the directory path into the database
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+var multer = require('multer');
+var path = require('path');
+var fs = require('fs');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -21,15 +21,15 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.set('views', path.join(__dirname, "views"));
 
 // setup storage engine for uploading files
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
     var userDir = './uploads/' + req.params.applicantID + '/';
     if (!fs.existsSync(userDir)){
       fs.mkdirSync(userDir);
     }
     cb(null, userDir);
   },
-  filename: (req, file, cb) =>{
+  filename: function(req, file, cb){
     console.log(file);
     cb(null, file.originalname);
   }
@@ -43,7 +43,7 @@ const storage = multer.diskStorage({
 //   }
 // }
 // set up upload function
-const upload = multer({storage: storage});
+var upload = multer({storage: storage});
 
 app.get('/',function(req,res){
   res.render('home');
@@ -62,12 +62,21 @@ app.get('/applicants', function(req, res, next){
   var content = {};
   var query = "SELECT * FROM `Applicants`";
   // If filter was provided, select from applicant based on filtertype and input
-  filter: if('filtertype' in req.query && 'input' in req.query){
+  if('filtertype' in req.query && 'input' in req.query){
     var filtertype = req.query.filtertype;
     var input = req.query.input;
     // check if empty input before input
     if (input == ''){
-      break filter;
+      // just return all the applicants
+      return mysql.pool.query(query, function(err, rows){
+        if(err){
+          next(err);
+          return;
+        } else {
+          content.rows = rows;
+          res.render('applicants', content);
+        }
+      });
     }
     // Otherwise log the filter request made
     console.log("Applicants Filter made!");
@@ -109,7 +118,7 @@ app.get('/applicants', function(req, res, next){
         content.rows = rows;
         res.render('applicants', content);
       }
-    });
+  });
 });
 
 app.post('/applicants', function(req,res){
@@ -147,7 +156,7 @@ app.get('/applicantInfo/:applicantID', function(req, res , next){
 });
 
 // upload resume route
-app.post('/applicantInfo/:applicantID', upload.single('resume'), (req, res) => {
+app.post('/applicantInfo/:applicantID', upload.single('resume'), function(req, res){
   try {
     console.log(req.params);
     mysql.pool.query("INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)", [req.params.applicantID, req.file.filename]);
