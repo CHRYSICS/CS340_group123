@@ -4,16 +4,8 @@
   "description": "DB project",
   "main": "server.js",
   "dependencies": {
-<<<<<<< HEAD
-    "body-parser": "^1.13.3",
-    "cjs": "0.0.11",
-    "express": "^4.17.1",
-    "express-handlebars": "^2.0.1",
-    "express-session": "^1.11.3",
-=======
     "express": "^4.17.1",
     "express-handlebars": "^5.2.1",
->>>>>>> 8d4c98f30ffb500a4013666475d37441cb01209e
     "forever": "^3.0.4",
     "handlebars": "^4.7.7",
     "multer": "^1.4.2",
