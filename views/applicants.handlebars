@@ -1,14 +1,16 @@
 <h1>Applicants Page</h1>
+<script src="/javascript/applicantsSearchInput.js"></script>
+
 <div class="insertForm">
     <h2>Add Applicant to Database:</h2>
     <form id="addApplicant" action="./applicants" method="POST">
         <label for="fname">First Name:</label>
         <br>
-        <input type="text" name="fname" placeholder="first name" maxlength="100" required>
+        <input type="text" name="firstName" placeholder="first name" maxlength="100" required>
         <br>
         <label for="lname">Last Name:</label>
         <br>
-        <input type="text" name="lname" placeholder="last name" maxlength="100" required>
+        <input type="text" name="lastName" placeholder="last name" maxlength="100" required>
         <br>
         <label for="email">Email:</label>
         <br>
@@ -28,23 +30,24 @@
         <input type="submit" value="submit">
     </form>
 </div>
+
 <div class="selectView">
     <h2>Select Applicant:</h2>
-    <form id="filterApplicants" action="applicants.handlebars" method="GET">
+    <form id="filterApplicants" action="./applicants" method="GET">
         <h3>Filter Selection:</h3>
         <label for="filter">filter by:</label>
-        <select name="filter" id="filter">
-            <option value="fname">first name</option>
-            <option value="lname">last name</option>
+        <select name="filtertype" id="filtertype" onchange="getInputType()">
+            <option value="firstName">first name</option>
+            <option value="lastName">last name</option>
             <option value="email">email</option>
             <option value="phone">phone</option>
-            <option value="address">first name</option>
+            <option value="address">address</option>
         </select>
         <label for="input">Enter value:</label>
         <input type="text" name="input" placeholder="text here">
         <input type="submit" value="filter">
-        
     </form>
+    
     <table id="applicantTable">
         <tr>
             <th>applicant ID</th>

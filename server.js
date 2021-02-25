@@ -16,6 +16,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('views', path.join(__dirname, "views"));
 
@@ -59,19 +60,61 @@ app.get('/posts', function(req,res){
 // route to display applicants in database
 app.get('/applicants', function(req, res, next){
   var content = {};
-  // retrieve all applicants from database
-  mysql.pool.query("SELECT * FROM `Applicants`", function(err, rows, fields){
-    if(err){
-      next(err);
-      return;
-    } else {
-      content.rows = rows;
-      res.render('applicants', content);
+  var query = "SELECT * FROM `Applicants`";
+  // If filter was provided, select from applicant based on filtertype and input
+  filter: if('filtertype' in req.query && 'input' in req.query){
+    var filtertype = req.query.filtertype;
+    var input = req.query.input;
+    // check if empty input before input
+    if (input == ''){
+      break filter;
     }
-  });
+    // Otherwise log the filter request made
+    console.log("Applicants Filter made!");
+    console.log(req.query);
+
+    // build query based on filter selection (this must be hardcoded to avoid injection)
+    if (filtertype == 'firstName'){
+      query += " WHERE firstName = ?";
+    } else if(filtertype == 'lastName'){
+      query += " WHERE lastName = ?";
+    } else if(filtertype == 'email'){
+      query += " WHERE email = ?";
+    } else if(filtertype == 'phone'){
+      query += " WHERE phone = ?";
+    } else if(filtertype == 'address'){
+      query += " WHERE address = ?";
+    } else {
+      console.log("Error: filtertype '" + filtertype + "' not allowed");
+      return;
+    }
+    // make conditional selection query
+    return mysql.pool.query(query, [input], function(err, rows){
+      if(err){
+        next(err);
+        return;
+      } else{
+        content.rows = rows;
+        res.render('applicants', content);
+      }
+    });
+  
+  }
+  // Otherwise select all applicants from sql table without filter
+  return mysql.pool.query(query, function(err, rows){
+      if(err){
+        next(err);
+        return;
+      } else {
+        content.rows = rows;
+        res.render('applicants', content);
+      }
+    });
 });
 
 app.post('/applicants', function(req,res){
+  console.log(req.body);
+  
   res.render('applicants');
 });
 
@@ -106,6 +149,7 @@ app.get('/applicantInfo/:applicantID', function(req, res , next){
 // upload resume route
 app.post('/applicantInfo/:applicantID', upload.single('resume'), (req, res) => {
   try {
+    console.log(req.params);
     mysql.pool.query("INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)", [req.params.applicantID, req.file.filename]);
     res.redirect('back');
   } catch (error){
