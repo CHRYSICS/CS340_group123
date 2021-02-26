@@ -1,50 +1,46 @@
 <h1>Employers List</h1>
+<script src = "/javascript/employers.js"></script>
 <div class = "insertForm">
     <h2>Add Employer</h2>
-        <form id="addEmployer" action="/Employers" method = "POST">
-            <label for = "employerID">Employer ID:</label>
-            <br>
-            <input type = "text" name="employerID", placeholder="employer ID">
-            <br>
-
+        <form id="addEmployer" action="./Employers" method = "POST">
             <label for = "businessName">Business Name:</label>
             <br>
-            <input type="text" name="businessName" placeholder="business name">
+            <input type="text" name="businessName" placeholder="business name" maxlength="100" required>
             <br>
-        
+      
             <label for = "email">Email:</label>
             <br>
-            <input type="text" name="email" placeholder="email">
+            <input type="text" name="email" placeholder="email" maxlength ="100" required>
             <br>
 
             <label for = "phone">Phone:</label>
             <br>
-            <input type="text" name="phone" placeholder="phone">
+           <input type="tel" name="phone" placeholder="XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
             <br>
             
             <label for = "address">Address:</label>
             <br>
-            <input type="text" name="address" placeholder="address">
+            <input type="text" name="address" placeholder="address" maxlength ="256" required>
             <br>
            
             <label for = "city">City:</label>
             <br>
-            <input type="text" name="city" placeholder="city">
+            <input type="text" name="city" placeholder="city" maxlength ="100" required>
             <br>
 
             <label for = "state">State:</label>
             <br>
-            <input type="text" name="state" placeholder="state">
+             <input type="text" name="state" placeholder="state (abbr)" placeholder="XX [A-Z, a-z]" pattern="[A-Za-z]{2}" required><br>
             <br>
 
             <label for = "country">Country:</label>
             <br>
-            <input type="text" name="country" placeholder="country">
+            <input type="text" name="country" placeholder="country (abbr)" pattern="[A-Za-z]{2}" required><br>
             <br>
             
             <label for = "zipCode">Zip Code:</label>
-            <Br>
-            <input type="text" name="zipCode" placeholder="zip code">
+            <br>
+            <input type="text" name="zipCode" placeholder="zipcode" maxlength="16"><br><br>
             <br>
 
             <input type = "submit" name="addButton" value="Add Employer" id="addButton">
@@ -53,7 +49,7 @@
 
 <div class ="selectEmployer">
     <h2>Select Employer:</h2>
-     <form id="filterEmployers" action="/Employers" method="GET">
+     <form id="filterEmployers" action="./Employers" method="GET">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
         <select name="filter" id="filter">
@@ -85,7 +81,7 @@
         {{#each rows}}
         <tr id={{this.employerID}}
             <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
-            <td><a href="/employersInfo/{{this.employerID}}">Select</a></td>
+            <td><a href = "/Employers/{{employerID}}">Select</a></td>
             <td><a href = "/Employers/{{employerID}}">Update</a></td>
             <td><button onclick = "deleteEmployer({{employerID}}" class='delete'>Delete</button></td>
         </tr>
@@ -93,9 +89,6 @@
     </table>
 </div>
 
-<h3>Current List of Employers</h3>
-    {{results}}
-    <div id = "postTable"></div>
 
  
     
