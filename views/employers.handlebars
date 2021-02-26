@@ -78,7 +78,7 @@
             <th>Country</th>
             <th>Zip Code</th>
         </tr>
-        {{#each rows}}
+        {{#each employers}}
         <tr id={{this.employerID}}
             <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
             <td><a href = "/Employers/{{employerID}}">Select</a></td>
