@@ -37,7 +37,7 @@ module.exports = function()
     }
     
     //Displays all Posts
-    router.get('./posts', function(req, res)
+    router.get('/', function(req, res)
     {
         var callbackCount = 0;
         var context = {};
@@ -53,7 +53,7 @@ module.exports = function()
         }
     });
     // Add a Post
-    router.post('./posts', function(req, res){
+    router.post('/', function(req, res){
         console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Posts (description, employerID) VALUES (?,?)";
@@ -65,14 +65,14 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/Posts');
+                res.redirect('/posts');
             }
         });
     });
 
 
     // Update Post
-    router.put('./posts/:postID', function(req, res){
+    router.put('/:postID', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.postID)
@@ -92,7 +92,7 @@ module.exports = function()
 
     /* Route to delete a post, simply returns a 202 upon success. Ajax will handle this. */
 
-    router.delete('./posts/:postID', function(req, res){
+    router.delete('/:postID', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM Posts WHERE postID = ?";
         var inserts = [req.params.postID];

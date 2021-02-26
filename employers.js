@@ -36,7 +36,7 @@ module.exports = function()
     }
     
     //Displays all Employers
-    router.get('./employers', function(req, res)
+    router.get('/', function(req, res)
     {
         var callbackCount = 0;
         var context = {};
@@ -52,7 +52,7 @@ module.exports = function()
         }
     });
     // Add an Employer
-    router.post('./employers', function(req, res){
+    router.post('/', function(req, res){
         console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Employers (businessName, email, phone, address, city, state, country, zipCode) VALUES (?,?,?,?,?,?,?,?)";
@@ -63,14 +63,14 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/');
+                res.redirect('/employers');
             }
         });
     });
 
 
     // Update Employer
-    router.put('./employers/:employerID', function(req, res){
+    router.put('/:employerID', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
@@ -90,7 +90,7 @@ module.exports = function()
 
     /* Route to delete a person, simply returns a 202 upon success. Ajax will handle this. */
 
-    router.delete('/employers/:employerID', function(req, res){
+    router.delete('/:employerID', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM Employers WHERE employerID = ?";
         var inserts = [req.params.employerID];
