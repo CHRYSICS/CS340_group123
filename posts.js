@@ -9,7 +9,7 @@ module.exports = function()
     // List of all Posts
     function getPosts(res, mysql, context, complete)
     {
-      mysql.pool.query("SELECT * FROM Posts ORDER BY description, employerID ASC|DESC;", function(error, results, fields)
+      mysql.pool.query("SELECT * FROM Posts ORDER BY description, employerID", function(error, results, fields)
       {
         if(error)
         {
