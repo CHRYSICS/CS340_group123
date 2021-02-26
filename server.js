@@ -20,8 +20,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('views', path.join(__dirname, "views"));
 
-app.use('/employers', require('./public/javascript/employers.js'));
-app.use('/posts', require('./public/javascript/posts.js'));
+app.set('mysql', mysql);
+app.use('/employers', require('./employers.js'));
+app.use('/posts', require('./posts.js'));
 
 // setup storage engine for uploading files
 var storage = multer.diskStorage({
