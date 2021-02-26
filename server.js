@@ -52,13 +52,13 @@ app.get('/',function(req,res){
   res.render('home');
 });
 
-app.get('/employers', function(req, res){
-  res.render('employers');
-});
+// app.get('/employers', function(req, res){
+//   res.render('employers');
+// });
 
-app.get('/posts', function(req,res){
-  res.render('posts');
-});
+// app.get('/posts', function(req,res){
+//   res.render('posts');
+// });
 
 // route to display applicants in database
 app.get('/applicants', function(req, res, next){
