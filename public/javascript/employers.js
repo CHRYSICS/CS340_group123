@@ -40,7 +40,7 @@ module.exports = function()
     {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteEmployer.js"];
+        context.jsscripts = ["deleteEmployersPosts.js"];
         var mysql = req.app.get('mysql');
         getEmployers(res, mysql, context, complete);
 
@@ -75,7 +75,7 @@ module.exports = function()
         console.log(req.body)
         console.log(req.params.id)
         var sql = "UPDATE Employers SET businessName=?, email=?, phone=?, address=?, city = ?, state=?, country = ?, zipCode = ? WHERE employerID=?";
-        var inserts = [req.body.fname, req.body.lname, req.body.homeworld, req.body.age, req.params.id];
+        var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode, reqs.param.employerID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
