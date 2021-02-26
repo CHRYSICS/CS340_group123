@@ -1,21 +1,16 @@
 <h1>Job Listings</h1>
-
+<script src = "/javascript/posts.js"></script>
 <div class = "insertForm">
 <h2>Add Post</h2>
-    <form id="addPost" action = /Posts method = "POST">
-        <label for = "postID">Post ID:</label>
-        <br>
-        <input type = "text" name="postID", placeholder="post ID">
-        <br>
-
+    <form id="addPost" action = "./Posts" method = "POST">
         <label for = "description">Description:</label>
         <br>
-        <input type="text" name="description" placeholder="description">
+        <input type="text" name="description" placeholder="description" required>
         <br>
     
         <label for = "employerID">Employer ID:</label>
         <br>
-        <input type="text" name="employerID" placeholder="employer ID">
+        <input type="text" name="employerID" placeholder="employer ID" required>
         <br>
 
         <input type = "submit" name="addButton" value="Add Employer" id="addButton">
@@ -45,7 +40,7 @@
             {{#each rows}}
             <tr id={{this.employerID}}
                 <td class="data">{{this.postID}}, {{this.description}}, {{this.employerID}}</td>
-                <td><a href="/postsInfo/{{this.postID}}">Select</a></td>
+                <td><a href = "/Posts/{{postID}}">Select</a></td>
                 <td><a href = "/Posts/{{postID}}">Update</a></td>
                 <td><button onclick = "deletePost({{postID}}" class='delete'>Delete</button></td>
             </tr>
@@ -53,6 +48,3 @@
         </table>
     </div>
 
-<h3>Current Job Listings</h3>
-    {{results}}
-    <div id = "postTable"></div>
