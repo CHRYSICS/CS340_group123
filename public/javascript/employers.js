@@ -55,7 +55,7 @@ module.exports = function()
     router.post('/', function(req, res){
         console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO Employers (businessName, email, phone, address, city, state, country, zipCode)";
+        var sql = "INSERT INTO Employers (businessName, email, phone, address, city, state, country, zipCode) VALUES (?,?,?,?,?,?,?,?)";
         var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
@@ -63,7 +63,7 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/Employers');
+                res.redirect('/');
             }
         });
     });
