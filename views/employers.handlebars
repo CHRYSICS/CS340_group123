@@ -1,7 +1,7 @@
 <h1>Employers List</h1>
 <div class = "insertForm">
     <h2>Add Employer</h2>
-        <form id="addEmployer">
+        <form id="addEmployer" action="employers.handlebars" method = "POST">
             <label for = "employerID">Employer ID:</label>
             <br>
             <input type = "text" name="employerID", placeholder="employer ID">
@@ -86,8 +86,8 @@
         <tr id={{this.employerID}}
             <td class="data">{{this.employerID}}, {{this.businessName}}, {{this.email}}, {{this.phone}}, {{this.address}},{{this.city}}, {{this.state}}, {{this.country}} {{this.zipCode}}</td>
             <td><a href="/employersInfo/{{this.employerID}}">Select</a></td>
-            <td><button class='Update'>Edit</button></td>
-            <td><button class='delete'>Delete</button></td>
+            <td><a href = "/Employers/{{employerID}}"><button class='Update'>Edit</button></a></td>
+            <td><button onclick = "deleteEmployer({{employerID}}" class='delete'>Delete</button></td>
         </tr>
         {{/each}}
     </table>
