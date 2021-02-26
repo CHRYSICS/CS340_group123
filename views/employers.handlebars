@@ -1,7 +1,7 @@
 <h1>Employers List</h1>
 <div class = "insertForm">
     <h2>Add Employer</h2>
-        <form id="addEmployer" action="employers.handlebars" method = "POST">
+        <form id="addEmployer" action="/Employers" method = "POST">
             <label for = "employerID">Employer ID:</label>
             <br>
             <input type = "text" name="employerID", placeholder="employer ID">
@@ -53,7 +53,7 @@
 
 <div class ="selectEmployer">
     <h2>Select Employer:</h2>
-     <form id="filterEmployers" action="employers.handlebars" method="GET">
+     <form id="filterEmployers" action="/Employers" method="GET">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
         <select name="filter" id="filter">
