@@ -2,7 +2,7 @@
 
 <div class = "insertForm">
 <h2>Add Post</h2>
-    <form id="addEmployer">
+    <form id="addPost" action = /Posts method = "POST">
         <label for = "postID">Post ID:</label>
         <br>
         <input type = "text" name="postID", placeholder="post ID">
@@ -24,7 +24,7 @@
 
 <div class ="selectPost">
         <h2>Select Post:</h2>
-        <form id="filterPosts" action="posts.handlebars" method="GET">
+        <form id="filterPosts" action="/Posts" method="GET">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
         <select name="filter" id="filter">
@@ -46,8 +46,8 @@
             <tr id={{this.employerID}}
                 <td class="data">{{this.postID}}, {{this.description}}, {{this.employerID}}</td>
                 <td><a href="/postsInfo/{{this.postID}}">Select</a></td>
-                <td><button class='Update'>Edit</button></td>
-                <td><button class='delete'>Delete</button></td>
+                <td><a href = "/Posts/{{postID}}"><button class='Update'>Edit</button></td>
+                <td><button onclick = "deletePost({{postID}}" class='delete'>Delete</button></td>
             </tr>
             {{/each}}
         </table>
