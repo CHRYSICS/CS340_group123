@@ -8,7 +8,7 @@ module.exports = function()
     // List of all Employers
     function getEmployers(res, mysql, context, complete)
     {
-      mysql.pool.query("SELECT * FROM Employers ORDER BY businessName, email, city, zipCode ASC|DESC", function(error, results, fields)
+      mysql.pool.query("SELECT * FROM Employers ORDER BY businessName ASC", function(error, results, fields)
       {
         if(error)
         {
