@@ -46,7 +46,7 @@
             <tr id={{this.employerID}}
                 <td class="data">{{this.postID}}, {{this.description}}, {{this.employerID}}</td>
                 <td><a href="/postsInfo/{{this.postID}}">Select</a></td>
-                <td><a href = "/Posts/{{postID}}"><button class='Update'>Edit</button></td>
+                <td><a href = "/Posts/{{postID}}">Update</a></td>
                 <td><button onclick = "deletePost({{postID}}" class='delete'>Delete</button></td>
             </tr>
             {{/each}}
