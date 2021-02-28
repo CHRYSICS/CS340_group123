@@ -4,7 +4,6 @@ function getInputType(){
     var filterForm = document.querySelector('#filterApplicants');
     var selectOp = filterForm.querySelector('select');
     var filterType = selectOp.options[selectOp.selectedIndex].value;
-    
     // retrieve input type from add Applicant form that matches filterType
     var addForm = document.querySelector('#addApplicant');
     var input = addForm.querySelector('input[name="' + filterType + '"]');

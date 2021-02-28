@@ -15,3 +15,18 @@ header li {
 header a{
     color: #000;
 }
+
+/*form Layout*/
+div.formLayout {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 5px;
+}
+
+div.formLayout label {
+    text-align: right;
+}
+
+div.formLayout input {
+    content: ":";
+}
