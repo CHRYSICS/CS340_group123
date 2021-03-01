@@ -29,7 +29,6 @@ module.exports = function () {
             }
         }
         getResponses(res, mysql, context, complete);
-
     });
 
     // return desired route path request

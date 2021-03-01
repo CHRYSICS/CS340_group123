@@ -4,6 +4,9 @@
 	<title>Demo Page</title>
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	{{#each jsscripts}}
+    <script src="/javascript/{{this}}"></script>
+    {{/each}}
 </head>
 <body>
 	<header>
@@ -12,6 +15,8 @@
 			<li><a href="/employers">Employers</a></li>
 			<li><a href="/posts">Posts</a></li>
 			<li><a href="/applicants">Applicants</a></li>
+			<li><a href="/resumes">Resumes</a></li>
+			<li><a href="/responses">Responses</a></li>
 		</ul>
 	</header>
 	

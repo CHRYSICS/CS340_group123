@@ -70,6 +70,21 @@ module.exports = function()
         });
     });
 
+    // Display post for update
+    router.get('/:id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatePost.js"];
+        var mysql = req.app.get('mysql');
+        getPost(res, mysql, context, req.params.id, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 1){
+                res.render('update-post', context);
+            }
+
+        }
+    });
 
     // Update Post
     router.put('/:postID', function(req, res){

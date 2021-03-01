@@ -5,7 +5,7 @@
     <form id="addPost" action = "./Posts" method = "POST">
         <label for = "description">Description:</label>
         <br>
-        <input type="text" name="description" placeholder="description" required>
+        <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
         <br>
     
         <label for = "employerID">Employer ID:</label>
@@ -34,13 +34,13 @@
         <table id="postTable">
             <tr>
                 <th>Post ID</th>
-                <th>Description</th>
                 <th>Employer ID</th>
+                <th>Description</th>
             </tr>
             {{#each posts}}
             <tr id={{this.employerID}}>
-                <td class="data">{{this.employerID}}</td>
                 <td class="data">{{this.postID}}</td>
+                <td class="data">{{this.employerID}}</td>
                 <td class="data">{{this.description}}</td>
                 <td><a href = "/post_responses/{{postID}}">Select</a></td>
                 <td><a href = "/posts/{{postID}}">Update</a></td>
