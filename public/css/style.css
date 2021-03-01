@@ -30,3 +30,16 @@ div.formLayout label {
 div.formLayout input {
     content: ":";
 }
+
+/*Info Layout*/
+#info li {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 5px;
+    list-style-type: none;
+    text-align: right;
+}
+
+#info span {
+    content: ":";
+}
