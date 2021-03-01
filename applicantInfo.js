@@ -1,4 +1,7 @@
 // Adapted from Lecture: https://oregonstate.instructure.com/courses/1825733/pages/learn-using-javascript-and-nodejs?module_item_id=20221781
+
+const { route } = require('./employers');
+
 // https://github.com/knightsamar/cs340_sample_nodejs_app/blob/master/people.js
 module.exports = function () {
   var express = require('express');
@@ -148,6 +151,45 @@ module.exports = function () {
     });
   });
 
+  // get update applicant route
+  router.get('/:applicantID/update', function(req, res)
+  {
+    var callbackCount = 0;
+    var id = req.params.applicantID;
+    var context = {};
+    var mysql = req.app.get('mysql');
+    // define complete function getting info and resumes
+    function complete() {
+      callbackCount++;
+      if (callbackCount >= 1) {
+        res.render('update-applicant', context);
+      }
+    }
+    getApplicant(res, mysql, context, id, complete);
+  });
+
+  // make update of applicant
+  router.put('/:applicantID/update', function(req,res){
+    var mysql = req.app.get('mysql');
+    var query = "UPDATE Applicants SET " +
+                "firstName=?, lastName=?, email=?, phone=?, address=?, city=?, state=?, country=?, zipCode=? " +
+                "WHERE applicantID=?";
+    var input = [req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.address,
+                 req.body.city, req.body.state, req.body.country, req.body.zipCode, req.params.applicantID];
+    // make sql request to update applicant
+    mysql.pool.query(query, input, function(error, results, fields)
+    {
+      // log any error that occurs with insert request
+      if(error){
+        console.log(error)
+        res.write(JSON.stringify(error));
+        res.end();
+      }else{
+        res.status(200);
+        res.end();
+      }
+    });
+  });
   // return desired route path request
   return router;
 }();

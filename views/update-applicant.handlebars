@@ -1,0 +1,35 @@
+<h1>Update {{info.firstName}} {{info.lastName}}</h1>
+<div class="insertForm">
+    <form id="update-applicant" action="./applicants" method="POST">
+        <div class="formLayout">
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" value="{{info.firstName}}" placeholder="first name" maxlength="100" required="required">
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" value="{{info.lastName}}" placeholder="last name" maxlength="100" required="required">
+            
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="{{info.email}}" placeholder="email" maxlength="100" required="required">
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" name="phone" value="{{info.phone}}" placeholder="XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+            
+            <label for="address">Address:</label>
+            <input type="text" name="address" value="{{info.address}}" placeholder="street address" maxlength="256" required="required">
+            
+            <label for="city">City:</label>
+            <input type="text" name="city" value="{{info.city}}" placeholder="city" maxlength="100" required="required">
+            
+            <label for="state">State:</label>
+            <input type="text" name="state" value="{{info.state}}" placeholder="state (abbr XX)" pattern="[A-Za-z]{2}" required="required">
+            
+            <label for="country">Country:</label>
+            <input type="text" name="country" value="{{info.country}}" placeholder="country (abbr XX)" pattern="[A-Za-z]{2}" required="required">
+            
+            <label for="zipCode">Zipcode:</label>
+            <input type="text" name="zipCode" value="{{info.zipCode}}" placeholder="zipcode" maxlength="16"><br>
+        </div>
+    </form>
+    <button onclick="updateApplicant({{info.applicantID}})">Update</button>
+</div>
+<script src="/javascript/updateApplicant.js"></script>

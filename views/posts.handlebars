@@ -1,5 +1,5 @@
 <h1>Job Listings</h1>
-<script src = "/CS340_group123/posts.js"></script>
+<script src = "/posts.js"></script>
 <div class = "insertForm">
 <h2>Add Post</h2>
     <form id="addPost" action = "./Posts" method = "POST">
@@ -43,7 +43,7 @@
                 <td class="data">{{this.postID}}</td>
                 <td class="data">{{this.description}}</td>
                 <td><a href = "/post_responses/{{postID}}">Select</a></td>
-                <td><a href = "/Posts/{{postID}}">Update</a></td>
+                <td><a href = "/posts/{{postID}}">Update</a></td>
                 <td><button onclick = "deletePost({{postID}}" class='delete'>Delete</button></td>
             </tr>
             {{/each}}

@@ -23,7 +23,8 @@ app.use('/employers', require('./employers.js'));
 app.use('/posts', require('./posts.js'));
 app.use('/applicants', require('./applicants.js'));
 app.use('/applicantInfo', require('./applicantInfo.js'));
-app.use('/responses', require("./responses.js"));
+app.use('/resumes', require('./resumes.js'));
+app.use('/responses', require('./responses.js'));
 app.use('/post_responses', require('./post_responses.js'));
 
 app.get('/',function(req,res){

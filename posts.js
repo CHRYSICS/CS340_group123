@@ -74,13 +74,13 @@ module.exports = function()
     // Update Post
     router.put('/:postID', function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.postID)
+        console.log(req.body);
+        console.log(req.params.postID);
         var sql = "UPDATE Posts SET description=?, employerID=? WHERE postID =?";
         var inserts = [req.body.description, req.body.employerID, req.params.postID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
-                console.log(error)
+                console.log(error);
                 res.write(JSON.stringify(error));
                 res.end();
             }else{

@@ -1,1 +1,20 @@
-{\rtf1}
+<h1>All Resumes:</h1>
+<div id="resumes">
+    <table>
+        <tr>
+            <th>resumeID</th>
+            <th>applicantID</th>
+            <th>fileLocation</th>
+        </tr>
+        {{#each resumes}}
+        <tr {{this.resumeID}}>
+            <td>{{this.resumeID}}</td>
+            <td>{{this.applicantID}}</td>
+            <td>{{this.fileName}}</td>
+            <td><a href = "/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
+            <td><button class='Update'>Edit</button></td>
+            <td><button class='delete'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

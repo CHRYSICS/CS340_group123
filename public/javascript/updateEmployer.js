@@ -6,5 +6,5 @@ function updateEmployer(employerID){
         success: function(result){
             window.location.replace("./");
         }
-    })
-};
+    });
+}
