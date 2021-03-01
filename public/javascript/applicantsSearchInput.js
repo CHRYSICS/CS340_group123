@@ -11,7 +11,8 @@ function getInputType(){
     // clone the input element
     var InputCopy = input.cloneNode(false);
     InputCopy.setAttribute("name", "input");
-
+    InputCopy.removeAttribute("pattern");
+    InputCopy.removeAttribute("required");
     // retrieve current input element for filter form
     var oldInput = filterForm.querySelector('input[name="input"]');
     filterForm.replaceChild(InputCopy, oldInput);

@@ -29,7 +29,7 @@ CREATE TABLE Resumes(
     `applicantID` int(11) NOT NULL,
     `fileName` varchar(250) not NULL,
     PRIMARY KEY(`resumeID`),
-    UNIQUE KEY `unique_fileName` (`fileName`),
+    UNIQUE KEY `unique_fileName` (`applicantID`, `fileName`),
     FOREIGN KEY(`applicantID`) REFERENCES Applicants(`applicantID`)
 ) ENGINE=InnoDB;
 
