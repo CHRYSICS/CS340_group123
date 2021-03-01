@@ -1,0 +1,18 @@
+<h1>All Responses:</h1>
+<h2>(M:M relations between Posts and Resumes)</h2>
+<div id="responses">
+    <table>
+        <tr>
+            <th>postID</th>
+            <th>resumeID</th>
+        </tr>
+        {{#each responses}}
+        <tr {{this.resumeID}}>
+            <td>{{this.postID}}</td>
+            <td>{{this.resumeID}}</td>
+            <td><a href = "/post_responses/{{this.postID}}">See Post Details</a></td>
+            <td><button class='delete'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

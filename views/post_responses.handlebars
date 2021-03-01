@@ -1,0 +1,29 @@
+<h1>{{info.businessName}}</h1>
+<div id="info">
+    <h2>Post Info:</h2>
+    <ul>
+        <li>DESCRIPTION: <span>{{info.description}}</span></li>
+        <br>
+        <li>CONTACT INFO</li>
+        <li>phone: <span>{{info.phone}}</span></li>
+        <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+    </ul>
+</div>
+<div>
+    <h2>Apply to Position:</h2>
+</div>
+<div id="responses">
+    <table>
+        <tr>
+            <th>postID</th>
+            <th>resumeID</th>
+        </tr>
+        {{#each responses}}
+        <tr {{this.resumeID}}>
+            <td>{{this.postID}}</td>
+            <td>{{this.resumeID}}</td>
+            <td><button class='delete'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
