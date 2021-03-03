@@ -53,7 +53,7 @@ module.exports = function()
     });
     // Add an Employer
     router.post('/', function(req, res){
-        console.log(req.body)
+        console.log(req.body);
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Employers (businessName, email, phone, address, city, state, country, zipCode) VALUES (?,?,?,?,?,?,?,?)";
         var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode];
@@ -63,22 +63,37 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/employers');
+                res.redirect('./employers');
             }
         });
     });
 
+    // Display employer for update
+    router.get('/:id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateEmployer.js"];
+        var mysql = req.app.get('mysql');
+        getEmployer(res, mysql, context, req.params.id, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 1){
+                res.render('update-employer', context);
+            }
+
+        }
+    });
 
     // Update Employer
     router.put('/:employerID', function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.id)
+        console.log(req.body);
+        console.log(req.params.id);
         var sql = "UPDATE Employers SET businessName=?, email=?, phone=?, address=?, city = ?, state=?, country = ?, zipCode = ? WHERE employerID=?";
-        var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode, reqs.param.employerID];
+        var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode, req.params.employerID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
-                console.log(error)
+                console.log(error);
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
