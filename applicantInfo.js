@@ -190,6 +190,7 @@ module.exports = function () {
       }
     });
   });
+  
   // return desired route path request
   return router;
 }();

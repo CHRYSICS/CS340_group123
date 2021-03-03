@@ -2,10 +2,32 @@
 // https://github.com/knightsamar/cs340_sample_nodejs_app/blob/master/people.js
 module.exports = function () {
     var express = require('express');
+    var multer = require('multer');
+    var fs = require('fs');
+
     var router = express.Router();
 
-    // Retrieve Responses to posts
-    function getResponses(res, mysql, context, complete){
+    
+    // setup storage engine for uploading files
+    var storage = multer.diskStorage({
+        destination: function(req, file, cb) {
+        var userDir = './uploads/' + req.params.applicantID + '/';
+        if (!fs.existsSync(userDir)){
+            fs.mkdirSync(userDir);
+        }
+        cb(null, userDir);
+        },
+        filename: function(req, file, cb){
+        console.log(file);
+        cb(null, file.originalname);
+        }
+    });
+
+    // set up upload function
+    var upload = multer({storage: storage});
+
+    // Retrieve Resumes
+    function getResumes(res, mysql, context, complete){
         var query = "SELECT * FROM Resumes";
         mysql.pool.query(query, function (error, results, fields) {
             if (error){
@@ -17,6 +39,20 @@ module.exports = function () {
         });
     }
 
+    // Retrieve Resume by resumeID
+    function getResume(res, mysql, context, id, complete){
+        var query = "SELECT * FROM Resumes WHERE resumeID=?";
+        mysql.pool.query(query, [id], function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.info = results[0];
+            complete();
+        });
+    }
+
+    // Display all resumes in database
     router.get('/', function(req, res){
         var context = {};
         var callbackCount = 0;
@@ -28,10 +64,99 @@ module.exports = function () {
                 res.render('resumes', context);
             }
         }
-        getResponses(res, mysql, context, complete);
+        getResumes(res, mysql, context, complete);
 
     });
 
+    // Insert new resume into database
+    router.post('/', upload.single('fileName'), function(req, res){
+        var mysql = req.app.get('mysql');
+        var query = "INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)";
+        var input = [req.body.applicantID, req.file.filename];
+        // make sql request to insert new resume
+        mysql.pool.query(query, input, function(error, results, fields){
+            // log any error that occurs with insert request
+            if(error){
+                console.log(JSON.stringify(error));
+                res.status(422).send('Unprocessable Entity: Duplicate file name');
+                res.end();
+            }
+            // otherwise request completed, return to get route path
+            else{
+                res.redirect('./resumes');
+            }
+        });
+    });
+
+    // get update resume route
+    router.get('/:resumeID/update', function(req, res){
+        var callbackCount = 0;
+        var id = req.params.resumeID;
+        var context = {};
+        var mysql = req.app.get('mysql');
+        // define complete function getting info and resumes
+        function complete() {
+        callbackCount++;
+            if (callbackCount >= 1) {
+                res.render('update-resumes', context);
+            }
+        }
+        getResume(res, mysql, context, id, complete);
+    });
+
+    // make update of applicant
+    router.put('/:resumeID/update', function(req,res){
+        var context = {};
+        callbackCount = 0;
+        var mysql = req.app.get('mysql');
+        var query = "UPDATE Resumes SET " +
+                    "applicantID=?, fileName=? " +
+                    "WHERE resumeID=?";
+        var input = [req.body.applicantID, req.body.fileName, req.params.resumeID];
+        // Function to handle retriecing original resume information before updating
+        function complete() {
+            callbackCount++;
+                if (callbackCount >= 1) {
+                    // once old resume info is retrieved, then process insert query
+                    // make sql request to update applicant
+                    mysql.pool.query(query, input, function(error, results, fields){
+                        // log any error that occurs with insert request
+                        if(error){
+                            console.log(error);
+                            res.write(JSON.stringify(error));
+                            res.end();
+                        }else{
+                            oldResume = context.info;
+                            // sucess in update, update actual file
+                            fs.rename('./uploads/' + oldResume.applicantID + '/' + oldResume.fileName,
+                                        './uploads/' + req.body.applicantID + '/' + req.body.fileName, 
+                                        function(err) {
+                                            if ( err ) console.log('ERROR: ' + err);
+                                        });
+                            res.status(200);
+                            res.end();
+                        }
+                    });
+                }
+            }
+        // Retrieve original resume info for file management
+        getResume(res, mysql, context, input[2], complete);
+    });
+
+    // provide a get method to download the given resume
+    router.get("/:resumeID/download", function(req, res){
+        var mysql=req.app.get('mysql');
+        var query = "SELECT * FROM Resumes WHERE resumeID=?";
+        mysql.pool.query(query, [req.params.resumeID], function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            var resumeInfo = results[0];
+            var filePath = "uploads/" + resumeInfo.applicantID + "/" + resumeInfo.fileName;
+            res.download(filePath);
+        });
+    });
     // return desired route path request
     return router;
 }();

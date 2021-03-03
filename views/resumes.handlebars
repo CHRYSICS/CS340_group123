@@ -1,10 +1,37 @@
 <h1>All Resumes:</h1>
+<div>
+    <h2>Add Resume to Database:</h2>
+    <form id="addResume" action="/resumes" method="POST" enctype="multipart/form-data">
+        <label for="fileName">File:</label>
+        <input type="file" name="fileName" required>
+        <br>
+        <label for="applicantID">Enter Applicant ID:</label>
+        <input type="number" name="applicantID">
+        <br>
+        <input type="submit" value="upload">
+    </form>
+</div>
+<div>
+    <form id="searchResumes" action="/resumes" method="GET">
+        <h2>Filter Selection:</h2>
+        <label for="fileName">By File Name:</label>
+        <input type="text" name="fileName" placeholder="enter file name">
+        
+        <label for="order"><br> --or-- <br>Order by Resume ID:</label>
+        <select name="order">
+            <option value="" disabled selected>Select Order</option>
+            <option value="ASC">Ascending Order</option>
+            <option value="DESC">Descending Order</option>
+        </select>
+        <input type="submit" value="filter">
+    </form>
+</div>
 <div id="resumes">
     <table>
         <tr>
             <th>resumeID</th>
             <th>applicantID</th>
-            <th>fileLocation</th>
+            <th>fileName</th>
         </tr>
         {{#each resumes}}
         <tr {{this.resumeID}}>
@@ -12,7 +39,8 @@
             <td>{{this.applicantID}}</td>
             <td>{{this.fileName}}</td>
             <td><a href = "/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
-            <td><button class='Update'>Edit</button></td>
+            <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
+            <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
             <td><button class='delete'>Delete</button></td>
         </tr>
         {{/each}}

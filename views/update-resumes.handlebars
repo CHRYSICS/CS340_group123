@@ -1,0 +1,14 @@
+<h1>Update {{info.fileName}}</h1>
+<div class="insertForm">
+    <form id="update-resumes" action="./resumes" method="POST">
+        <div class="formLayout">
+            <label for="fileName">Change File Name:</label>
+            <input type="text" name="fileName" value="{{info.fileName}}" required>
+
+            <label for="applicantID">Enter Applicant ID:</label>
+            <input type="number" name="applicantID" value="{{info.applicantID}}">
+        </div>
+    </form>
+    <button onclick="updateResume({{info.resumeID}})">Update</button>
+</div>
+<script src="/javascript/updateResume.js"></script>

@@ -37,7 +37,7 @@
         <tr>
             <th>resumeID</th>
             <th>applicantID</th>
-            <th>fileLocation</th>
+            <th>fileName</th>
         </tr>
         {{#each resumes}}
         <tr {{this.resumeID}}>
@@ -46,6 +46,7 @@
             <td>{{this.fileName}}</td>
             <td><button class='Update'>Edit</button></td>
             <td><button class='delete'>Delete</button></td>
+            <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
         </tr>
         {{/each}}
     </table>
