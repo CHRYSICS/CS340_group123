@@ -1,5 +1,29 @@
 <h1>All Responses:</h1>
-<h2>(M:M relations between Posts and Resumes)</h2>
+<p>(M:M relations between Posts and Resumes)</p>
+<div id="addResponse">
+    <h3>Add new resume response to post:</h3>
+    <form action="/responses" method="POST">
+        <label for="postID">Enter Post ID:</label>
+        <input name="postID" type="number" placeholder="enter ID number">
+
+        <label for="resumeID">Enter Resume ID:</label>
+        <input name="resumeID" type="number" placeholder="enter ID number">
+        <input type="submit" value="addResume">
+    </form>
+</div>
+<div id="filterResponses">
+    <h3>Filter Responses by either post ID or resumes ID</h3>
+    <form action="/responses" method="GET">
+        <label for="filter">filter by:</label>
+        <select name="filtertype" id="filtertype">
+            <option value="postID">post ID</option>
+            <option value="resumeID">resume ID</option> 
+        </select>
+        <label for="idNum">Enter ID number:</label>
+        <input type="number" name="idNum" placeholder="Enter ID Number">
+        <input type="submit" value="filter">
+    </form>
+</div>
 <div id="responses">
     <table>
         <tr>
@@ -11,6 +35,7 @@
             <td>{{this.postID}}</td>
             <td>{{this.resumeID}}</td>
             <td><a href = "/post_responses/{{this.postID}}">See Post Details</a></td>
+            <td><a href="/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
             <td><button class='delete'>Delete</button></td>
         </tr>
         {{/each}}
