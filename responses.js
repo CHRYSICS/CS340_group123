@@ -102,6 +102,24 @@ module.exports = function () {
         });
     });
 
+    // delete response from Responses table
+    router.delete('/delete/:postID/:resumeID', function(req, res){
+        var mysql = req.app.get('mysql');
+        // create query for delete query
+        var query = "DELETE FROM Responses WHERE postID = ? AND resumeID = ?";
+        mysql.pool.query(query, [req.params.postID, req.params.resumeID], function(error, results, fields){
+            // log any erro that occurs with deleting response
+            if(error){
+                console.log(JSON.stringify(error));
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            // otherwise report status 200 success and end response
+            console.log("Deleted Response pair: postID(" + req.params.postID + ") AND resumeID(" + req.params.resumeID + ")");
+            res.status(200);
+            res.end();
+        })
+    });
     // return desired route path request
     return router;
 }();
