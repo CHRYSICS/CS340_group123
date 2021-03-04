@@ -74,7 +74,7 @@ module.exports = function()
         var context = {};
         context.jsscripts = ["updateEmployer.js"];
         var mysql = req.app.get('mysql');
-        getEmployer(res, mysql, context, req.params.id, complete);
+        getEmployer(res, mysql, context, req.params.employerID, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
@@ -88,7 +88,7 @@ module.exports = function()
     router.put('/:employerID', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body);
-        console.log(req.params.id);
+        console.log(req.params.employerID);
         var sql = "UPDATE Employers SET businessName=?, email=?, phone=?, address=?, city = ?, state=?, country = ?, zipCode = ? WHERE employerID=?";
         var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode, req.params.employerID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
