@@ -1,0 +1,10 @@
+<h1>{{info.businessName}}</h1>
+<div id="info">
+    <h2>Employers Info:</h2>
+    <ul>
+        <li>email: <span>{{info.email}}</span></li>
+        <li>phone: <span>{{info.phone}}</span></li>
+        <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+    </ul>
+    <td><a href="/employersInfo/{{info.employerID}}/update">Update</a></td>
+</div>
