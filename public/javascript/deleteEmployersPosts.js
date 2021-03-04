@@ -1,6 +1,6 @@
 function deleteEmployer(employerID){
     $.ajax({
-        url: '/Employers/' + employerID,
+        url: '/employers/' + employerID,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true);
@@ -10,7 +10,7 @@ function deleteEmployer(employerID){
 
 function deletePost(postID){
     $.ajax({
-        url: '/Posts/' + postID,
+        url: '/posts/' + postID,
         type: 'DELETE',
         success: function(result){
             window.location.reload(true);
