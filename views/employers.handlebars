@@ -90,8 +90,8 @@
             <td class="data">{{this.country}}</td>
             <td class="data">{{this.zipCode}}</td>
             <td><a href = "/employersInfo/{{employerID}}">Select</a></td>
-            <td><a href = "/employersInfo/{{employerID}}/update">Update</a></td>
-            <td><button onclick = "deleteEmployer({{employerID}}" class='delete'>Delete</button></td>
+            <td><a href = "/employersInfo/{{employerID}}">Update</a></td>
+            <td><button onclick = "deleteEmployer({{employerID}})">Delete</button></td>
         </tr>
         {{/each}}
     </table>
