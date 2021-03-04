@@ -81,15 +81,16 @@
             <td class="data">{{this.state}}</td>
             <td class="data">{{this.country}}</td>
             <td class="data">{{this.zipCode}}</td>
-            <td><a href="/applicantInfo/{{this.applicantID}}">Select</a></td>
+            <td><a href="/applicantInfo/{{this.applicantID}}">View Applicant Details</a></td>
             <td><a href="/applicantInfo/{{this.applicantID}}/update">Update</a></td>
-            <td><button class='delete'>Delete</button></td>
+            <td><button onclick="deletePerson({{this.applicantID}})">Delete</button></td>
         </tr>
         {{/each}}
     </table>
 </div>
 
 <script src="/javascript/applicantsSearchInput.js"></script>
+<script src="/javascript/deleteApplicant.js"></script>
 <script type="text/javascript">
   getInputType();
 </script>

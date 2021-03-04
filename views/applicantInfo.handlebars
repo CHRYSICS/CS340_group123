@@ -44,10 +44,11 @@
             <td>{{this.resumeID}}</td>
             <td>{{this.applicantID}}</td>
             <td>{{this.fileName}}</td>
-            <td><button class='Update'>Edit</button></td>
-            <td><button class='delete'>Delete</button></td>
             <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
+            <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
+            <td><button onclick="deleteResumeForApplicant({{this.resumeID}}, {{this.applicantID}})">Delete</button></td>
         </tr>
         {{/each}}
     </table>
 </div>
+<script src="/javascript/deleteResume.js"></script>

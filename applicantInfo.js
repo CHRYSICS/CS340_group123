@@ -1,7 +1,4 @@
 // Adapted from Lecture: https://oregonstate.instructure.com/courses/1825733/pages/learn-using-javascript-and-nodejs?module_item_id=20221781
-
-const { route } = require('./employers');
-
 // https://github.com/knightsamar/cs340_sample_nodejs_app/blob/master/people.js
 module.exports = function () {
   var express = require('express');
@@ -181,7 +178,7 @@ module.exports = function () {
     {
       // log any error that occurs with insert request
       if(error){
-        console.log(error)
+        console.log(error);
         res.write(JSON.stringify(error));
         res.end();
       }else{

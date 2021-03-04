@@ -2,6 +2,7 @@
 // https://github.com/knightsamar/cs340_sample_nodejs_app/blob/master/people.js
 module.exports = function () {
     var express = require('express');
+    var fs = require('fs');
     var router = express.Router();
 
     // List of all Applicants (mysql query)
@@ -53,6 +54,20 @@ module.exports = function () {
             complete();
         });
     }
+
+    // get resumes for applicant for file management
+    function getResumes(res, mysql, context, applicantID, complete){
+        var query = "SELECT * FROM Resumes WHERE applicantID=?";
+        mysql.pool.query(query, [applicantID], function (error, results, fields) {
+            if (error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.resumes = results;
+            complete();
+        });
+    }
+
     // route to display applicants in database
     router.get('/', function (req, res) {
         var callbackCount = 0;
@@ -112,6 +127,48 @@ module.exports = function () {
                 res.redirect('./applicants');
             }
         });
+    });
+
+    // Route to handle deleting applicants, done with AJAX request
+    router.delete('/:applicantID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var query = "DELETE FROM Applicants WHERE applicantID = ?";
+        var input = [req.params.applicantID];
+        var context = {};
+        callbackCount = 0;
+        // Function to handle retrieving original resume information before deleting applicant
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1) {
+                // once old resume info is retrieved, then process delete query
+                // make sql request to delete applicant
+                mysql.pool.query(query, input, function(error, results, fields){
+                    // log any error that occurs with insert request
+                    if(error){
+                        console.log(error);
+                        res.write(JSON.stringify(error));
+                        res.end();
+                    }else{
+                        // sucess in delete, update actual file locations to "null" folder
+                        // this location is for unclaimed resumes that exist without a connected applicant
+                        console.log('Applicant Deleted: Transfer file location for associated resumes to null folder');
+                        for(var i in context.resumes){
+                            console.log('Move File From: ./uploads/' + req.params.applicantID + '/' + context.resumes[i].fileName,
+                            'To: ./uploads/null/' + context.resumes[i].fileName);
+                            fs.rename('./uploads/' + req.params.applicantID + '/' + context.resumes[i].fileName,
+                                    './uploads/null/' + context.resumes[i].fileName, 
+                                    function (err) {
+                                        if ( err ) console.log('ERROR: ' + err);
+                            });
+                        }
+                        res.status(200);
+                        res.end();
+                    }
+                });
+            }
+        }
+        // Retrieve original resume info for file management
+        getResumes(res, mysql, context, input[0], complete);
     });
 
     // return desired route path request

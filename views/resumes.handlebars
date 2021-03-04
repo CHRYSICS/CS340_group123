@@ -41,8 +41,9 @@
             <td><a href = "/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
             <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
             <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
-            <td><button class='delete'>Delete</button></td>
+            <td><button onclick="deleteResume({{this.resumeID}})">Delete</button></td>
         </tr>
         {{/each}}
     </table>
 </div>
+<script src="/javascript/deleteResume.js"></script>

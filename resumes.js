@@ -143,6 +143,44 @@ module.exports = function () {
         getResume(res, mysql, context, input[2], complete);
     });
 
+    // Route to handle deleting resumes, done with AJAX request
+    router.delete('/:resumeID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var query = "DELETE FROM Resumes WHERE resumeID = ?";
+        var input = [req.params.resumeID];
+        var context = {};
+        callbackCount = 0;
+        // Function to handle retrieving original resume information before deleting resume
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1) {
+                // once old resume info is retrieved, then process delete query
+                // make sql request to delete resume
+                mysql.pool.query(query, input, function(error, results, fields){
+                    // log any error that occurs with insert request
+                    if(error){
+                        console.log(error);
+                        res.write(JSON.stringify(error));
+                        res.end();
+                    }else{
+                        // sucess in delete, remove actual file locations
+                        console.log('Deleting File: ./uploads/' + context.info.applicantID + '/' + context.info.fileName);
+                        fs.unlink('./uploads/' + context.info.applicantID + '/' + context.info.fileName, function(err) {
+                            if (err){
+                                console.log('ERROR: ' + err);
+                            } else{
+                                res.status(200);
+                                res.end();
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        // Retrieve original resume info for file management
+        getResume(res, mysql, context, input[0], complete);
+    });
+
     // provide a get method to download the given resume
     router.get("/:resumeID/download", function(req, res){
         var mysql=req.app.get('mysql');
@@ -157,6 +195,7 @@ module.exports = function () {
             res.download(filePath);
         });
     });
+
     // return desired route path request
     return router;
 }();

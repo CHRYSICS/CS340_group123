@@ -28,10 +28,10 @@ module.exports = function () {
         var id = parseInt(idNum);
         // complete rest of filter query based on filtertype
         if(filtertype == "postID"){
-            query += "postID=?";
+            query += "r.postID=?";
         }
         else if(filtertype == "resumeID"){
-            query += "resumeID=?";
+            query += "r.resumeID=?";
         } else {
             error = "Error: filtertype '" + filtertype + "' not allowed";
             console.log(error);

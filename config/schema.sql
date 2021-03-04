@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Applicants;
 
 -- Initialize Applicants table
 CREATE TABLE Applicants(
-    `applicantID` int(11) NOT NULL AUTO_INCREMENT,
+    `applicantID` int(11) AUTO_INCREMENT,
     `firstName` varchar(100) NOT NULL,
     `lastName` varchar(100) NOT NULL,
     `email` varchar(100) NOT NULL,
@@ -26,11 +26,12 @@ CREATE TABLE Applicants(
 -- Initialize Resumes table
 CREATE TABLE Resumes(
     `resumeID` int(11) NOT NULL AUTO_INCREMENT,
-    `applicantID` int(11) NOT NULL,
-    `fileName` varchar(250) not NULL,
+    `applicantID` int(11),
+    `fileName` varchar(250) NOT NULL,
     PRIMARY KEY(`resumeID`),
     UNIQUE KEY `unique_fileName` (`applicantID`, `fileName`),
     FOREIGN KEY(`applicantID`) REFERENCES Applicants(`applicantID`)
+    ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- Initialize Employers table
@@ -63,6 +64,7 @@ CREATE TABLE Responses(
     PRIMARY KEY (`postID`, `resumeID`),
     FOREIGN KEY (`postID`) REFERENCES Posts(`postID`),
     FOREIGN KEY (`resumeID`) REFERENCES Resumes(`resumeID`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- Provide some Sample Data (need at least three for each)
