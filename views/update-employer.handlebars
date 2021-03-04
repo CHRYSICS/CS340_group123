@@ -1,5 +1,16 @@
 <html>
+  <tr id={{this.employerID}}>
+            Business Name:<td class="data">{{this.businessName}}</td>
+            Email:<td class="data">{{this.email}}</td>
+            Phone:<td class="data">{{this.phone}}</td>
+            Address:<td class="data">{{this.address}}</td>
+            City:<td class="data">{{this.city}}</td>
+            State:<td class="data">{{this.state}}</td>
+            Country:<td class="data">{{this.country}}</td>
+            Zip Code:<td class="data">{{this.zipCode}}</td>
+   </tr>
   <h1>Update {{employers.businessName}}:</h1>
+  
     <form id="update-employer" action="./Employers" method="post">
     
         Business Name: <input type="text" name="businessName" value="{{employers.businessName}}"><br>
