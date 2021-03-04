@@ -55,6 +55,7 @@ CREATE TABLE Posts(
     `employerID` INT NOT NULL,
     PRIMARY KEY(`postID`),
     FOREIGN KEY(`employerID`) REFERENCES Employers(`employerID`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- -- Initialize Responses table
@@ -62,7 +63,8 @@ CREATE TABLE Responses(
     `postID` int(11) NOT NULL,
     `resumeID` int(11) NOT NULL,
     PRIMARY KEY (`postID`, `resumeID`),
-    FOREIGN KEY (`postID`) REFERENCES Posts(`postID`),
+    FOREIGN KEY (`postID`) REFERENCES Posts(`postID`)
+    ON DELETE CASCADE,
     FOREIGN KEY (`resumeID`) REFERENCES Resumes(`resumeID`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB;
