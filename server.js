@@ -26,7 +26,7 @@ app.use('/applicants', require('./applicants.js'));
 app.use('/applicantInfo', require('./applicantInfo.js'));
 app.use('/resumes', require('./resumes.js'));
 app.use('/responses', require('./responses.js'));
-app.use('/post_responses', require('./post_responses.js'));
+app.use('/postInfo', require('./postInfo.js'));
 
 app.get('/',function(req,res){
   res.render('home');

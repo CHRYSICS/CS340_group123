@@ -41,7 +41,7 @@ module.exports = function () {
         function complete() {
             callbackCount++;
             if (callbackCount >= 2) {
-                res.render('post_responses', context);
+                res.render('postInfo', context);
             }
         }
         getPostInfo(res, mysql, context, id, complete);

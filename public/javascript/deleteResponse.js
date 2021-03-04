@@ -7,3 +7,13 @@ function deleteResponse(postID, resumeID){
         }
     });
 }
+
+function deleteResponseForPost(postID, resumeID){
+    $.ajax({
+        url: '/responses/delete/' + postID + '/' + resumeID,
+        type: 'DELETE',
+        success: function(result){
+            window.location.replace("/postInfo/" + postID);
+        }
+    });
+}
