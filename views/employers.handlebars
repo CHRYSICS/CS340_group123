@@ -1,5 +1,6 @@
 <h1>Employers List</h1>
 <script src = "/CS340_group123/employers.js"></script>
+<script src="/CS340_group123/deleteEmployersPosts.js"></script>
 <div class = "insertForm">
     <h2>Add Employer</h2>
         <form id="addEmployer" action="./Employers" method = "POST">
@@ -90,7 +91,7 @@
             <td class="data">{{this.country}}</td>
             <td class="data">{{this.zipCode}}</td>
             <td><a href = "/employersInfo/{{employerID}}">Select</a></td>
-            <td><a href = "/employersInfo/{{employerID}}">Update</a></td>
+            <td><a href = "/employersInfo/{{employerID}}/update">Update</a></td>
             <td><button onclick = "deleteEmployer({{employerID}})">Delete</button></td>
         </tr>
         {{/each}}
