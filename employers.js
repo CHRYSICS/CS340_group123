@@ -69,7 +69,7 @@ module.exports = function()
     });
 
     // Display employer for update
-    router.get('/:id', function(req, res){
+    router.get('/:employerID', function(req, res){
         callbackCount = 0;
         var context = {};
         context.jsscripts = ["updateEmployer.js"];
