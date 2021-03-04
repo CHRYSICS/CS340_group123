@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set('mysql', mysql);
 app.use('/employers', require('./employers.js'));
+app.use('/employersInfo', require('./employers.js));
 app.use('/posts', require('./posts.js'));
 app.use('/applicants', require('./applicants.js'));
 app.use('/applicantInfo', require('./applicantInfo.js'));
