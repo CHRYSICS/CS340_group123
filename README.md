@@ -7,6 +7,12 @@ To setup (and not need to download 'node_modules'):
 3. In project directory, enter in terminal: 'npm install'
 This will install all dependencies needed via package.json
 
+To setup:
+1. pull git repo into local directory
+2. in the main project folder, run "npm install" (this installs node modules in local directory)
+3. Because this node version needs to work with the school server, the modules are set to work under these conditions. This means that there is an old bug in the handlebars modules (fix this by going to the file where the error occurs and remove the comma [ask need assistance changing])
+4. Once the bug is fixed, the application should be ready to run.
+
 To run:
 node server.js {port number}
 
