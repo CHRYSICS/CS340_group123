@@ -1,51 +1,37 @@
 <h1>Employers List</h1>
 <script src = "/CS340_group123/employers.js"></script>
 <script src="/CS340_group123/deleteEmployersPosts.js"></script>
+
 <div class = "insertForm">
     <h2>Add Employer</h2>
-        <form id="addEmployer" action="./Employers" method = "POST">
+    <form id="addEmployer" action="./Employers" method = "POST">
+        <div class="formLayout">
             <label for = "businessName">Business Name:</label>
-            <br>
             <input type="text" name="businessName" placeholder="business name" maxlength="100" required>
-            <br>
-      
+    
             <label for = "email">Email:</label>
-            <br>
             <input type="text" name="email" placeholder="email" maxlength ="100" required>
-            <br>
 
             <label for = "phone">Phone:</label>
-            <br>
-           <input type="tel" name="phone" placeholder="XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-            <br>
+            <input type="tel" name="phone" placeholder="XXX-XXX-XXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
             
             <label for = "address">Address:</label>
-            <br>
             <input type="text" name="address" placeholder="address" maxlength ="256" required>
-            <br>
-           
+        
             <label for = "city">City:</label>
-            <br>
             <input type="text" name="city" placeholder="city" maxlength ="100" required>
-            <br>
 
             <label for = "state">State:</label>
-            <br>
-             <input type="text" name="state" placeholder="state (abbr)" placeholder="XX [A-Z, a-z]" pattern="[A-Za-z]{2}" required><br>
-            <br>
+            <input type="text" name="state" placeholder="state (abbr)" placeholder="XX [A-Z, a-z]" pattern="[A-Za-z]{2}" required>
 
             <label for = "country">Country:</label>
-            <br>
-            <input type="text" name="country" placeholder="country (abbr)" pattern="[A-Za-z]{2}" required><br>
-            <br>
+            <input type="text" name="country" placeholder="country (abbr)" pattern="[A-Za-z]{2}" required>
             
             <label for = "zipCode">Zip Code:</label>
-            <br>
-            <input type="text" name="zipCode" placeholder="zipcode" maxlength="16"><br><br>
-            <br>
-
-            <input type = "submit" name="addButton" value="Add Employer" id="addButton">
-        </form>
+            <input type="text" name="zipCode" placeholder="zipcode" maxlength="16">
+        </div>
+        <input type = "submit" name="addButton" value="Add Employer" id="addButton">
+    </form>
     </div>
 
 <div class ="selectEmployer">
