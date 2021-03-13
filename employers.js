@@ -20,6 +20,43 @@ module.exports = function()
       });
     }
     
+    // List all employers based on filter (mysql query)
+    function getEmployersFiltered(res, mysql, context, filtertype, input, complete){
+        var query = "SELECT * FROM `Employers`";
+        // build query based on filter selection (this must hardcoded to avoid injection)
+        if (filtertype == 'businessName'){
+            query += " WHERE `businessName` = ?";
+        } else if (filtertype == 'email'){
+            query += " WHERE `email` = ?";
+        } else if (filtertype == 'phone'){
+            query += " WHERE `phone` = ?";
+        } else if (filtertype == 'address'){
+            query += " WHERE `address` = ?";
+        } else if (filtertype == 'city'){
+            query += " WHERE `city` = ?";
+        } else if (filtertype == 'state'){
+            query += " WHERE `state` = ?";
+        } else if (filtertype == 'country'){
+            query += " WHERE `country` = ?";
+        } else if (filtertype == 'zipCode'){
+            query += " WHERE `zipCode` = ?";
+        } else {
+            error = "Error: filtertype '" + filtertype + "' not allowed";
+            console.log(error);
+            res.write(JSON.stringify(error));
+            res.end(); 
+        }
+        // make conditional selection query
+        mysql.pool.query(query, [input], function(error, results, fields) {
+            if (error) {
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.employers = results;
+            complete();
+        });
+    }
+
     // Singular Employer
     function getEmployer(res, mysql, context, employerID, complete)
     {
@@ -35,22 +72,41 @@ module.exports = function()
       });
     }
     
-    //Displays all Employers
+    //route to display employers in database
     router.get('/', function(req, res)
     {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteEmployersPosts.js"];
+        context.jsscripts = ["deleteEmployersPosts.js",
+                            "employersSearchInput.js"];
         var mysql = req.app.get('mysql');
-        getEmployers(res, mysql, context, complete);
-
+        
+        // define complete function for get request
         function complete(){
             callbackCount ++;
             if(callbackCount >= 1){
                 res.render('employers', context);
             }
         }
+        // If filter was provided, select employers based o filtertype and input
+        if ('filtertype' in req.query && 'input' in req.query){
+            var filtertype = req.query.filtertype;
+            var input = req.query.input;
+            // check if empty input before input
+            if (input == ''){
+                // just return all employers
+                return getEmployers(res, mysql, context, complete);
+            }
+            // otherwise log the filter request made
+            console.log("Employers Filter made!");
+            console.log(req.query);
+            // return filtered results from employers
+            return getEmployersFiltered(res, mysql, context, filtertype, input, complete);
+        }
+        // just return all the employers
+        return getEmployers(res, mysql, context, complete);
     });
+
     // Add an Employer
     router.post('/', function(req, res){
         console.log(req.body);

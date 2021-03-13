@@ -1,7 +1,4 @@
 <h1>Employers List</h1>
-<script src = "/CS340_group123/employers.js"></script>
-<script src="/CS340_group123/deleteEmployersPosts.js"></script>
-
 <div class = "insertForm">
     <h2>Add Employer</h2>
     <form id="addEmployer" action="./Employers" method = "POST">
@@ -34,25 +31,27 @@
     </form>
     </div>
 
-<div class ="selectEmployer">
+<div class ="selectView">
     <h2>Select Employer:</h2>
-     <form id="filterEmployers" action="./Employers" method="GET">
+     <form id="filterEmployers" action="./employers" method="GET" onchange="getInputType()">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
-        <select name="filter" id="filter">
-            <option value="businessName">business name</option>
+        <select name="filtertype" id="filtertype">
+            <option value="businessName" selected="selected">business name</option>
             <option value="email">email</option>
             <option value="phone">phone</option>
-            <option value="address">first name</option>
-            <option value = "city">city</option>
-            <option value = "state">state</option>
-            <option value = "country">country</option>
-            <option value = "zipCode">zip code</option>
+            <option value="address">address</option>
+            <option value="city">city</option>
+            <option value="state">state</option>
+            <option value="country">country</option>
+            <option value="zipCode">zipcode</option>
         </select>
         <label for="input">Enter value:</label>
         <input type="text" name="input" placeholder="text here">
         <input type="submit" value="filter">
+        <a href="/employers">RESET TABLE</a>
     </form>
+
     <table id="employerTable">
         <tr>
             <th>Employer ID</th>
@@ -83,6 +82,6 @@
     </table>
 </div>
 
-
- 
-    
+<script type="text/javascript">
+    getInputType();
+</script>
