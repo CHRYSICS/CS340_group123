@@ -11,14 +11,15 @@ module.exports = function () {
     // setup storage engine for uploading files
     var storage = multer.diskStorage({
         destination: function(req, file, cb) {
-        var userDir = './uploads/' + req.params.applicantID + '/';
+        var userDir = './uploads/' + req.body.applicantID + '/';
         if (!fs.existsSync(userDir)){
             fs.mkdirSync(userDir);
         }
+        console.log("Resume Saved To:", userDir + file.originalname);
         cb(null, userDir);
         },
         filename: function(req, file, cb){
-        console.log(file);
+        req.body.fileName = file.originalname;
         cb(null, file.originalname);
         }
     });
@@ -52,6 +53,19 @@ module.exports = function () {
         });
     }
 
+    // List of all Applicants (mysql query)
+    function getApplicants(res, mysql, context, complete) {
+        var query = "SELECT applicantID, firstName, lastName FROM `Applicants`";
+        mysql.pool.query(query, function (error, results, fields) {
+            if (error) {
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.applicants = results;
+            complete();
+        });
+    }
+
     // Display all resumes in database
     router.get('/', function(req, res){
         var context = {};
@@ -60,25 +74,26 @@ module.exports = function () {
         // define complete function getting info and resumes
         function complete() {
             callbackCount++;
-            if (callbackCount >= 1) {
+            if (callbackCount >= 2) {
                 res.render('resumes', context);
             }
         }
         getResumes(res, mysql, context, complete);
-
+        getApplicants(res, mysql, context, complete);
     });
 
     // Insert new resume into database
     router.post('/', upload.single('fileName'), function(req, res){
         var mysql = req.app.get('mysql');
         var query = "INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)";
+        console.log(req.body, req.file);
         var input = [req.body.applicantID, req.file.filename];
         // make sql request to insert new resume
         mysql.pool.query(query, input, function(error, results, fields){
             // log any error that occurs with insert request
             if(error){
                 console.log(JSON.stringify(error));
-                res.status(422).send('Unprocessable Entity: Duplicate file name');
+                res.status(422).send('SQL RESTRICTION ERROR');
                 res.end();
             }
             // otherwise request completed, return to get route path
@@ -87,7 +102,7 @@ module.exports = function () {
             }
         });
     });
-
+    
     // get update resume route
     router.get('/:resumeID/update', function(req, res){
         var callbackCount = 0;
@@ -97,11 +112,12 @@ module.exports = function () {
         // define complete function getting info and resumes
         function complete() {
         callbackCount++;
-            if (callbackCount >= 1) {
+            if (callbackCount >= 2) {
                 res.render('update-resumes', context);
             }
         }
         getResume(res, mysql, context, id, complete);
+        getApplicants(res, mysql, context, complete);
     });
 
     // make update of applicant
@@ -127,6 +143,11 @@ module.exports = function () {
                             res.end();
                         }else{
                             oldResume = context.info;
+                            // check if user has folder yet
+                            var userDir = './uploads/' + req.body.applicantID + '/';
+                            if (!fs.existsSync(userDir)){
+                                fs.mkdirSync(userDir);
+                            }
                             // sucess in update, update actual file
                             fs.rename('./uploads/' + oldResume.applicantID + '/' + oldResume.fileName,
                                         './uploads/' + req.body.applicantID + '/' + req.body.fileName, 

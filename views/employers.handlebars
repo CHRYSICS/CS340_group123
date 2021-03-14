@@ -33,10 +33,10 @@
 
 <div class ="selectView">
     <h2>Select Employer:</h2>
-     <form id="filterEmployers" action="./employers" method="GET" onchange="getInputType()">
+     <form id="filterEmployers" action="./employers" method="GET">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
-        <select name="filtertype" id="filtertype">
+        <select name="filtertype" id="filtertype" onchange="getInputType()">
             <option value="businessName" selected="selected">business name</option>
             <option value="email">email</option>
             <option value="phone">phone</option>
@@ -49,7 +49,7 @@
         <label for="input">Enter value:</label>
         <input type="text" name="input" placeholder="text here">
         <input type="submit" value="filter">
-        <a href="/employers">RESET TABLE</a>
+        <a href="/employers">Clear Filter</a>
     </form>
 
     <table id="employerTable">
@@ -75,7 +75,8 @@
             <td class="data">{{this.state}}</td>
             <td class="data">{{this.country}}</td>
             <td class="data">{{this.zipCode}}</td>
-            <td><a href = "/employersInfo/{{employerID}}">Select</a></td>
+            <td><a href = "/employers/{{employerID}}">View Profile</a></td>
+            <td><a href = "/employers/{{employerID}}/update">Update</a></td> 
             <td><button onclick = "deleteEmployer({{employerID}})">Delete</button></td>
         </tr>
         {{/each}}

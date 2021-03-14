@@ -4,7 +4,7 @@ module.exports = function()
 {
     var express = require('express');
     var router = express.Router();
-    
+
     // List of all Employers
     function getEmployers(res, mysql, context, complete)
     {
@@ -67,11 +67,24 @@ module.exports = function()
           res.write(JSON.stringify(error));
           res.end();
         }
-        context.employers = results[0];
+        context.employer = results[0];
         complete();
       });
     }
     
+    // get posts for employer
+    function getEmployerPosts(res, mysql, context, employerID, complete){
+        var query = "SELECT * FROM Posts WHERE employerID=?";
+        mysql.pool.query(query, [employerID], function(error, results, fields){
+            if (error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.posts = results;
+            complete();
+        });
+    }
+
     //route to display employers in database
     router.get('/', function(req, res)
     {
@@ -88,6 +101,7 @@ module.exports = function()
                 res.render('employers', context);
             }
         }
+
         // If filter was provided, select employers based o filtertype and input
         if ('filtertype' in req.query && 'input' in req.query){
             var filtertype = req.query.filtertype;
@@ -124,8 +138,26 @@ module.exports = function()
         });
     });
 
-    // Display employer for update
+    // display employer detailed info
     router.get('/:employerID', function(req, res){
+        var callbackCount = 0;
+        var id = req.params.employerID;
+        var context = {};
+        context.jsscripts = ["deleteEmployersPosts.js"];
+        var mysql = req.app.get('mysql');
+        // define complete funciton getting info and posts
+        function complete(){
+            callbackCount++;
+            if (callbackCount >= 2){
+                res.render('employersInfo', context);
+            }
+        }
+        getEmployer(res, mysql, context, id, complete);
+        getEmployerPosts(res, mysql, context, id, complete);
+    })
+
+    // Display employer for update
+    router.get('/:employerID/update', function(req, res){
         callbackCount = 0;
         var context = {};
         context.jsscripts = ["updateEmployer.js"];
@@ -141,7 +173,7 @@ module.exports = function()
     });
 
     // Update Employer
-    router.put('/:employerID', function(req, res){
+    router.put('/:employerID/update', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body);
         console.log(req.params.employerID);

@@ -2,11 +2,16 @@
 <div>
     <h2>Add Resume to Database:</h2>
     <form id="addResume" action="/resumes" method="POST" enctype="multipart/form-data">
+        <label for="applicantID">Select Applicant ID:</label>
+        <select name="applicantID">
+            <option value="" hidden disabled selected>Existing Applicant IDs...</option>
+            {{#each applicants}}
+            <option value="{{this.applicantID}}">{{this.firstName}} {{this.lastName}}: ID {{this.applicantID}}</option>
+            {{/each}}
+        </select>
+        <br>
         <label for="fileName">File:</label>
         <input type="file" name="fileName" required>
-        <br>
-        <label for="applicantID">Enter Applicant ID:</label>
-        <input type="number" name="applicantID">
         <br>
         <input type="submit" value="upload">
     </form>

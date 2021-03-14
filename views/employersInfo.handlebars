@@ -1,10 +1,29 @@
-<h1>{{info.businessName}}</h1>
+<h1>{{employer.businessName}}</h1>
 <div id="info">
     <h2>Employers Info:</h2>
     <ul>
-        <li>email: <span>{{info.email}}</span></li>
-        <li>phone: <span>{{info.phone}}</span></li>
-        <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+        <li>email: <span>{{employer.email}}</span></li>
+        <li>phone: <span>{{employer.phone}}</span></li>
+        <li>address: <span>{{employer.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
     </ul>
-    <td><a href="/employersInfo/{{info.employerID}}/update">Update</a></td>
+    <td><a href="/employers/{{employer.employerID}}/update">Update</a></td>
+</div>
+<div id="posts">
+    <table>
+        <tr>
+            <th>Post ID</th>
+            <th>Employer ID</th>
+            <th>Description</th>
+        </tr>
+        {{#each posts}}
+        <tr id={{this.employerID}}>
+            <td class="data">{{this.postID}}</td>
+            <td class="data">{{this.employerID}}</td>
+            <td class="data">{{this.description}}</td>
+            <td><a href="/postInfo/{{this.postID}}">Select</a></td>
+            <td><a href="/posts/{{this.postID}}">Update</a></td>
+            <td><button onclick="deletePost({{this.postID}})" class="delete">Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
 </div>

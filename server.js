@@ -4,7 +4,8 @@ var express = require('express');
 var mysql = require('./config/dbcon.js');
 
 var app = express();
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+var handlebars = require('express-handlebars').create({defaultLayout:'main', 
+                                                      helpers: require('./config/hbsHelpers')});
 
 // Files are uploaded on server local directory, not on database
 // we will store the directory path into the database
