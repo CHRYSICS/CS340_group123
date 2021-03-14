@@ -118,7 +118,7 @@ module.exports = function () {
             console.log("Deleted Response pair: postID(" + req.params.postID + ") AND resumeID(" + req.params.resumeID + ")");
             res.status(200);
             res.end();
-        })
+        });
     });
     // return desired route path request
     return router;

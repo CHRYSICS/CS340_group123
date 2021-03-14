@@ -5,8 +5,8 @@ function deleteEmployer(employerID){
         success: function(result){
             window.location.reload(true);
         }
-    })
-};
+    });
+}
 
 function deletePost(postID){
     $.ajax({
@@ -15,5 +15,5 @@ function deletePost(postID){
         success: function(result){
             window.location.reload(true);
         }
-    })
-};
+    });
+}

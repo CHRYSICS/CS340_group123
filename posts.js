@@ -65,14 +65,14 @@ module.exports = function()
     });
     // Add a Post
     router.post('/', function(req, res){
-        console.log(req.body)
+        console.log(req.body);
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Posts (description, employerID) VALUES (?,?)";
       
         var inserts = [req.body.description, req.body.employerID];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
-                console.log(JSON.stringify(error))
+                console.log(JSON.stringify(error));
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
@@ -125,15 +125,15 @@ module.exports = function()
         var inserts = [req.params.postID];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
-                console.log(error)
+                console.log(error);
                 res.write(JSON.stringify(error));
                 res.status(400);
                 res.end();
             }else{
                 res.status(202).end();
             }
-        })
-    })
+        });
+    });
 
     return router;
 

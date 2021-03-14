@@ -129,7 +129,7 @@ module.exports = function()
         var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
-                console.log(JSON.stringify(error))
+                console.log(JSON.stringify(error));
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
@@ -154,7 +154,7 @@ module.exports = function()
         }
         getEmployer(res, mysql, context, id, complete);
         getEmployerPosts(res, mysql, context, id, complete);
-    })
+    });
 
     // Display employer for update
     router.get('/:employerID/update', function(req, res){
@@ -199,15 +199,15 @@ module.exports = function()
         var inserts = [req.params.employerID];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
-                console.log(error)
+                console.log(error);
                 res.write(JSON.stringify(error));
                 res.status(400);
                 res.end();
             }else{
                 res.status(202).end();
             }
-        })
-    })
+        });
+    });
 
     return router;
 
