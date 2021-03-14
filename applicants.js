@@ -23,27 +23,28 @@ module.exports = function () {
         var query = "SELECT * FROM `Applicants`";
         // build query based on filter selection (this must be hardcoded to avoid injection)
         if (filtertype == 'firstName') {
-            query += " WHERE `firstName` = ?";
+            query += " WHERE `firstName` LIKE ?";
         } else if (filtertype == 'lastName') {
-            query += " WHERE `lastName` = ?";
+            query += " WHERE `lastName`` LIKE ?";
         } else if (filtertype == 'email') {
-            query += " WHERE `email` = ?";
+            query += " WHERE `email` LIKE ?";
         } else if (filtertype == 'phone') {
-            query += " WHERE `phone` = ?";
+            query += " WHERE `phone`` LIKE ?";
         } else if (filtertype == 'address') {
-            query += " WHERE `address` = ?";
+            query += " WHERE `address`` LIKE ?";
         } else if (filtertype == 'city'){
-            query += " WHERE `city` = ?";
+            query += " WHERE `city`` LIKE ?";
         } else if (filtertype == 'state') {
-            query += " WHERE `country` = ?";
+            query += " WHERE `country` LIKE ?";
         } else if (filtertype == 'zipCode') {
-            query += " WHERE `zipCode` = ?";
+            query += " WHERE `zipCode`` LIKE ?";
         } else {
             error = "Error: filtertype '" + filtertype + "' not allowed";
             console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
+        input = "%" + input + "%";
         // make conditional selection query
         mysql.pool.query(query, [input], function (error, results, fields) {
             if (error) {
