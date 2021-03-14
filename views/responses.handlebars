@@ -4,10 +4,19 @@
     <h3>Add new resume response to post:</h3>
     <form action="/responses" method="POST">
         <label for="postID">Enter Post ID:</label>
-        <input name="postID" type="number" placeholder="enter ID number">
-
+        <select name="postID">
+            <option value="" hidden disabled selected>Post IDs...</option>
+            {{#each posts}}
+            <option value="{{this.postID}}">ID {{this.postID}}</option>
+            {{/each}}
+        </select>
         <label for="resumeID">Enter Resume ID:</label>
-        <input name="resumeID" type="number" placeholder="enter ID number">
+        <select name="resumeID">
+            <option value="" hidden disabled selected>Resume IDs...</option>
+            {{#each resumes}}
+            <option value="{{this.resumeID}}">{{this.fileName}}: ID {{this.resumeID}}</option>
+            {{/each}}
+        </select>
         <input type="submit" value="addResume">
     </form>
 </div>

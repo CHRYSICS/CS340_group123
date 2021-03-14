@@ -49,6 +49,34 @@ module.exports = function () {
         });
     }
 
+    // Retrieve all post ids
+    function getPosts(res, mysql, context, complete){
+        var query = "SELECT postID FROM Posts";
+        mysql.pool.query(query, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.posts = results;
+            complete();
+        });
+    }
+
+    // Retrieve all resume ids and filenames
+    function getResumes(res, mysql, context, complete){
+        var query = "SELECT resumeID, fileName FROM Resumes";
+        mysql.pool.query(query, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.resumes = results;
+            complete();
+        });
+    }
+
     // display of response page
     router.get('/', function(req, res){
         var context = {};
@@ -57,11 +85,13 @@ module.exports = function () {
         // define complete function getting responses
         function complete() {
             callbackCount++;
-            if (callbackCount >= 1) {
+            if (callbackCount >= 3) {
                 res.render('responses', context);
             }
         }
-        // 
+        // get post and resume ids for adding new response
+        getPosts(res, mysql, context, complete);
+        getResumes(res, mysql, context, complete);
         // If filter was provided, select from applicant based on filtertype and id number given
         if ('filtertype' in req.query && 'idNum' in req.query) {
             var filtertype = req.query.filtertype;
