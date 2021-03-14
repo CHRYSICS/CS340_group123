@@ -1,11 +1,20 @@
 <html>
-  <h1>Update {{posts.description}}:</h1>
-    <form id="update-post" action="/Posts" method="post">
-    
-        Description: <input type="text" name="description" value="{{posts.description}}"><br>
-        Employer ID: <input type = "text" name = "employerID" value = "{{posts.employerID}}"><br>
-     
+  <h1>Update Post</h1>
+    <form id="update-post" action="/posts" method="post">
+      <label for = "description">Description:</label>
+      <br>
+      <textarea name="description" maxlength="150" cols="50" rows="3" required>{{post.description}}</textarea>
+      <br>
+      <label for="employerID">Select employer ID:</label>
+            <select name="employerID">
+                {{#each employers}}
+                    {{#ifEql this.employerID ../post.employerID}}
+                    <option value="{{this.employerID}}" selected="selected">{{this.businessName}}: ID {{this.employerID}}</option>
+                    {{else}}
+                    <option value="{{this.employerID}}">{{this.businessName}}: ID {{this.employerID}}</option>
+                    {{/ifEql}}
+                {{/each}}
+            </select>
     </form>
-  <button onclick="updatePost({{posts.postID}})">Update</button>
-<script src="/javascript/updateApplicant.js"></script>
+  <button onclick="updatePost({{post.postID}})">Update</button>
 </html>

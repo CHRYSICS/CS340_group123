@@ -42,7 +42,7 @@ module.exports = function()
           res.write(JSON.stringify(error));
           res.end();
         }
-        context.posts = results[0];
+        context.post = results[0];
         complete();
       });
     }
@@ -88,9 +88,10 @@ module.exports = function()
         context.jsscripts = ["updatePost.js"];
         var mysql = req.app.get('mysql');
         getPost(res, mysql, context, req.params.id, complete);
+        getEmployers(res, mysql, context, complete);
         function complete(){
             callbackCount++;
-            if(callbackCount >= 1){
+            if(callbackCount >= 2){
                 res.render('update-post', context);
             }
 
