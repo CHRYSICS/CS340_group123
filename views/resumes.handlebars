@@ -17,17 +17,10 @@
     </form>
 </div>
 <div>
+    <h2>Filter Selection:</h2>
     <form id="searchResumes" action="/resumes" method="GET">
-        <h2>Filter Selection:</h2>
         <label for="fileName">By File Name:</label>
         <input type="text" name="fileName" placeholder="enter file name">
-        
-        <label for="order"><br> --or-- <br>Order by Resume ID:</label>
-        <select name="order">
-            <option value="" disabled selected>Select Order</option>
-            <option value="ASC">Ascending Order</option>
-            <option value="DESC">Descending Order</option>
-        </select>
         <input type="submit" value="filter">
     </form>
 </div>

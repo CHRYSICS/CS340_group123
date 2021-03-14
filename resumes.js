@@ -53,6 +53,18 @@ module.exports = function () {
         });
     }
 
+    // Retrieve resumes by fileName
+    function getResumebyName(res, mysql, context, fileName, complete){
+        var query = "SELECT * FROM Resumes WHERE fileName=?";
+        mysql.pool.query(query, [fileName], function(error, results, fields){
+            if (error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.resumes = results;
+        });
+    }
+
     // List of all Applicants (mysql query)
     function getApplicants(res, mysql, context, complete) {
         var query = "SELECT applicantID, firstName, lastName FROM `Applicants`";
@@ -78,6 +90,10 @@ module.exports = function () {
                 res.render('resumes', context);
             }
         }
+        // if filter was provided, select resumes based on fileName
+        if('fileName' in req.query){
+            getResumebyName(res, mysql, context, req.query.fileName, complete);
+        }
         getResumes(res, mysql, context, complete);
         getApplicants(res, mysql, context, complete);
     });
@@ -86,7 +102,6 @@ module.exports = function () {
     router.post('/', upload.single('fileName'), function(req, res){
         var mysql = req.app.get('mysql');
         var query = "INSERT INTO `Resumes`(`applicantID`, `fileName`) VALUES (?, ?)";
-        console.log(req.body, req.file);
         var input = [req.body.applicantID, req.file.filename];
         // make sql request to insert new resume
         mysql.pool.query(query, input, function(error, results, fields){
