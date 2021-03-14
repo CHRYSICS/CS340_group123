@@ -62,6 +62,7 @@ module.exports = function () {
                 res.end();
             }
             context.resumes = results;
+            complete();
         });
     }
 
@@ -90,12 +91,14 @@ module.exports = function () {
                 res.render('resumes', context);
             }
         }
+        getApplicants(res, mysql, context, complete);
         // if filter was provided, select resumes based on fileName
         if('fileName' in req.query){
             getResumebyName(res, mysql, context, req.query.fileName, complete);
+        }else{
+            getResumes(res, mysql, context, complete);
         }
-        getResumes(res, mysql, context, complete);
-        getApplicants(res, mysql, context, complete);
+        
     });
 
     // Insert new resume into database
