@@ -20,7 +20,18 @@ module.exports = function()
         complete();
       });
     }
-    
+    // Get employer ID and business names for selection
+    function getEmployers(req, mysql, context, complete){
+        var sql = "SELECT employerID, businessName FROM Employers";
+        mysql.pool.query(sql, function(error, results, fields){
+            if (error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.employers = results;
+            complete();
+        });
+    }
     // Singular Post
     function getPost(res, mysql, context, postID, complete)
     {
@@ -44,10 +55,10 @@ module.exports = function()
         context.jsscripts = ["deleteEmployersPosts.js"];
         var mysql = req.app.get('mysql');
         getPosts(res, mysql, context, complete);
-
+        getEmployers(req, mysql, context, complete);
         function complete(){
             callbackCount ++;
-            if(callbackCount >= 1){
+            if(callbackCount >= 2){
                 res.render('posts', context);
             }
         }

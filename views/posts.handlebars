@@ -6,13 +6,14 @@
         <br>
         <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
         <br>
-    
         <label for = "employerID">Employer ID:</label>
-        <br>
-        <input type="text" name="employerID" placeholder="employer ID" required>
-        <br>
-
-        <input type = "submit" name="addButton" value="Add Employer" id="addButton">
+        <select name="employerID">
+            <option value="" hidden disabled selected>Existing Employer IDs...</option>
+            {{#each employers}}
+            <option value="{{this.employerID}}">{{this.businessName}}: ID {{this.employerID}}</option>
+            {{/each}}
+        </select>
+        <input type = "submit" name="addButton" value="Add Post" id="addButton">
     </form>
 </div>
 
