@@ -46,6 +46,21 @@ module.exports = function () {
         });
     }
 
+    // Retrieve all resume ids and filenames
+    function getResumes(res, mysql, context, complete){
+        var query = "SELECT resumeID, fileName FROM Resumes";
+        mysql.pool.query(query, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.resumes = results;
+            complete();
+        });
+    }
+
+    // display post info and option to apply
     router.get('/:postID', function(req, res){
         var context = {};
         var callbackCount = 0;
@@ -54,7 +69,7 @@ module.exports = function () {
         // define complete function getting info and resumes
         function complete() {
             callbackCount++;
-            if (callbackCount >= 2) {
+            if (callbackCount >= 3) {
                 res.render('postInfo', context);
             }
         }
@@ -66,6 +81,23 @@ module.exports = function () {
             getResponses(res, mysql, context, id, complete);
         }
         getPostInfo(res, mysql, context, id, complete);
+        getResumes(res, mysql, context, complete);
+
+    });
+
+    // insert new response for post
+    router.post("/:postID", function(req, res){
+        var mysql = req.app.get('mysql');
+        var query = "INSERT INTO Responses (postID, resumeID) VALUES (?, ?)";
+        var input = [parseInt(req.params.postID), parseInt(req.body.resumeID)];
+        mysql.pool.query(query, input, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            res.redirect("/postInfo/" + req.params.postID);
+        });
 
     });
 

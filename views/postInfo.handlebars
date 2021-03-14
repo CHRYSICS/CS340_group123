@@ -13,7 +13,16 @@
 </div>
 <div>
     <h2>Apply to Position:</h2>
-    <p>(option to apply here directly coming soon)</p>
+    <form action="/postInfo/{{info.postID}}" method="POST">
+        <label for="resumeID">Enter Resume ID:</label>
+        <select name="resumeID">
+            <option value="" hidden disabled selected>Resume IDs...</option>
+            {{#each resumes}}
+            <option value="{{this.resumeID}}">{{this.fileName}}: ID {{this.resumeID}}</option>
+            {{/each}}
+        </select>
+        <input type="submit" value="addResume">
+    </form>
 </div>
 <div id="responses">
     <h2>Responses to Post:</h2>
