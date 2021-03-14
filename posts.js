@@ -113,9 +113,9 @@ module.exports = function()
             }
         });
     });
-
+ 
     // Display post for update
-    router.get('/:id', function(req, res){
+    router.get('/:id/update', function(req, res){
         callbackCount = 0;
         var context = {};
         context.jsscripts = ["updatePost.js"];
@@ -132,7 +132,7 @@ module.exports = function()
     });
 
     // Update Post
-    router.put('/:postID', function(req, res){
+    router.put('/:postID/update', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body);
         console.log(req.params.postID);

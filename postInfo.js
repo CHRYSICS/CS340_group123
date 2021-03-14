@@ -32,6 +32,20 @@ module.exports = function () {
         });
     }
 
+    // Retrieve filtered responses for post
+    function getResponsesFiltered(res, mysql, context, id, num, complete){
+        var query = "SELECT * FROM Responses WHERE postID=? AND resumeID=?";
+        mysql.pool.query(query, [id, num], function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.responses = results;
+            complete();
+        });
+    }
+
     router.get('/:postID', function(req, res){
         var context = {};
         var callbackCount = 0;
@@ -44,8 +58,14 @@ module.exports = function () {
                 res.render('postInfo', context);
             }
         }
+        if("idNum" in req.query){
+            var num = req.query.idNum;
+            getResponsesFiltered(res, mysql, context, id, num, complete);
+        }
+        else{
+            getResponses(res, mysql, context, id, complete);
+        }
         getPostInfo(res, mysql, context, id, complete);
-        getResponses(res, mysql, context, id, complete);
 
     });
 

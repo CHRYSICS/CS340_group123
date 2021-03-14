@@ -4,10 +4,12 @@
     <ul>
         <li>DESCRIPTION: <span>{{info.description}}</span></li>
         <br>
-        <li>CONTACT INFO</li>
+        <li>EMPLOYER CONTACT INFO</li>
         <li>phone: <span>{{info.phone}}</span></li>
         <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+        <li><a href="/employers/{{info.employerID}}">View Employer</a></li>
     </ul>
+    <a href="/posts/{{info.postID}}/update">Update</a>
 </div>
 <div>
     <h2>Apply to Position:</h2>
@@ -15,6 +17,13 @@
 </div>
 <div id="responses">
     <h2>Responses to Post:</h2>
+    <h3>Filter Responses by resume ID</h3>
+    <form id="searchResponses" action="/postinfo/{{info.postID}}" method="GET">
+        <label for="idNum">Enter Resume ID number:</label>
+        <input type="number" name="idNum" placeholder="Enter ID Number">
+        <input type="submit" value="filter">
+        <a href="/postinfo/{{info.postID}}">Clear Filter</a>
+    </form>
     <table>
         <tr>
             <th>postID</th>
