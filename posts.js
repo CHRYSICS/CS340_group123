@@ -20,6 +20,32 @@ module.exports = function()
         complete();
       });
     }
+
+    // get filtered results for Posts
+    function getPostsFiltered(req, mysql, context, filter, input, complete){
+        var sql = "SELECT * FROM Posts";
+        if("postID" == filter){
+            sql += " WHERE postID=?";
+        } else if("employerID" == filter){
+            sql += " WHERE employerID=?";
+        } else if("description" == filter){
+            sql += " WHERE description=?";
+        }else{
+            error = "Error: filter not allowed";
+            console.log(error);
+            res.write(JSON.stringify(error));
+            res.end();
+        }
+        mysql.pool.query(sql, [input], function(error, results, fields){
+            if (error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.posts = results;
+            complete();
+        });
+    }
+
     // Get employer ID and business names for selection
     function getEmployers(req, mysql, context, complete){
         var sql = "SELECT employerID, businessName FROM Employers";
@@ -32,6 +58,7 @@ module.exports = function()
             complete();
         });
     }
+
     // Singular Post
     function getPost(res, mysql, context, postID, complete)
     {
@@ -54,7 +81,12 @@ module.exports = function()
         var context = {};
         context.jsscripts = ["deleteEmployersPosts.js"];
         var mysql = req.app.get('mysql');
-        getPosts(res, mysql, context, complete);
+        if ("filter" in req.query && "input" in req.query){
+            getPostsFiltered(res, mysql, context, req.query.filter, req.query.input, complete);
+        }
+        else{
+            getPosts(res, mysql, context, complete);
+        }
         getEmployers(req, mysql, context, complete);
         function complete(){
             callbackCount ++;
@@ -63,6 +95,7 @@ module.exports = function()
             }
         }
     });
+
     // Add a Post
     router.post('/', function(req, res){
         console.log(req.body);

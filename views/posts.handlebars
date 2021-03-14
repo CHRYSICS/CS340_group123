@@ -18,18 +18,19 @@
 </div>
 
 <div class ="selectPost">
-        <h2>Select Post:</h2>
-        <form id="filterPosts" action="/Posts" method="GET">
+    <h2>Select Post:</h2>
+    <form id="filterPosts" action="/posts" method="GET">
         <h3>Filter By:</h3>
         <label for="filter">filter by:</label>
         <select name="filter" id="filter">
-            <option value="postID">post ID</option>
+            <option value="postID" selected="selected">post ID</option>
             <option value="description">description</option>
             <option value="employerID">employer ID</option>
         </select>
         <label for="input">Enter value:</label>
         <input type="text" name="input" placeholder="text here">
         <input type="submit" value="filter">
+        <a href="/posts">Clear Filter</a>
     </form>
         <table id="postTable">
             <tr>
