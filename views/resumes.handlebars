@@ -1,50 +1,50 @@
-<h1>All Resumes:</h1>
-<div>
+<h1>Resume Listings</h1>
+<div class="insertForm">
     <h2>Add Resume to Database:</h2>
     <form id="addResume" action="/resumes" method="POST" enctype="multipart/form-data">
-        <label for="applicantID">Select Applicant ID:</label>
-        <select name="applicantID">
-            <option value="" hidden disabled selected>Existing Applicant IDs...</option>
-            {{#each applicants}}
-            <option value="{{this.applicantID}}">{{this.firstName}} {{this.lastName}}: ID {{this.applicantID}}</option>
-            {{/each}}
-        </select>
-        <br>
-        <label for="fileName">File:</label>
-        <input type="file" name="fileName" required>
-        <br>
+        <div class="formLayout">
+            <label for="applicantID">Select Applicant ID:</label>
+            <select name="applicantID">
+                <option value="" hidden disabled selected>Existing Applicant IDs...</option>
+                {{#each applicants}}
+                <option value="{{this.applicantID}}">{{this.firstName}} {{this.lastName}}: ID {{this.applicantID}}</option>
+                {{/each}}
+            </select>
+            <label for="fileName">File:</label>
+            <input type="file" name="fileName" required>
+        </div>
         <input type="submit" value="upload">
     </form>
 </div>
 {{#if resumes}}
-<div>
-    <h2>Filter Selection:</h2>
-    <form id="searchResumes" action="/resumes" method="GET">
-        <label for="fileName">By File Name:</label>
-        <input type="text" name="fileName" placeholder="enter file name">
-        <input type="submit" value="filter">
-        <a href="/resumes">Clear Filter</a>
-    </form>
-</div>
-<div id="resumes">
-    <table>
-        <tr>
-            <th>resumeID</th>
-            <th>applicantID</th>
-            <th>fileName</th>
-        </tr>
-        {{#each resumes}}
-        <tr {{this.resumeID}}>
-            <td>{{this.resumeID}}</td>
-            <td>{{this.applicantID}}</td>
-            <td>{{this.fileName}}</td>
-            <td><a href = "/applicantInfo/{{this.applicantID}}">View Profile</a></td>
-            <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
-            <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
-            <td><button onclick="deleteResume({{this.resumeID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
+<div class="selectView">
+    <h2>Select Resume</h2>
+    <div>
+        <form id="searchResumes" action="/resumes" method="GET">
+            <label for="fileName">By File Name:</label>
+            <input type="text" name="fileName" placeholder="enter file name">
+            <input type="submit" value="filter">
+            <a href="/resumes">Clear Filter</a>
+        </form>
+        <table>
+            <tr>
+                <th>resumeID</th>
+                <th>applicantID</th>
+                <th>fileName</th>
+            </tr>
+            {{#each resumes}}
+            <tr {{this.resumeID}}>
+                <td>{{this.resumeID}}</td>
+                <td>{{this.applicantID}}</td>
+                <td>{{this.fileName}}</td>
+                <td><a href = "/applicantInfo/{{this.applicantID}}">View Profile</a></td>
+                <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
+                <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
+                <td><button onclick="deleteResume({{this.resumeID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>
 {{/if}}
 <script src="/javascript/deleteResume.js"></script>

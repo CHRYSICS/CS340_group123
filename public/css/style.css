@@ -1,3 +1,30 @@
+/*HTML background*/
+html {
+    background-color: cadetblue;
+}
+/*main_body section*/
+section#main_body{
+    width:80%;
+    padding-left:10%;
+}
+/*Div styling*/
+div{
+    background-color: lightgrey;
+    padding: 10px 5%;
+    box-shadow: 5px 5px 20px;
+    margin: 10px;
+} 
+
+div div{
+    background-color: cadetblue;
+}
+h2 {
+    background-color: lightblue;
+    padding: 10px 5%;
+    box-shadow: 5px 5px 20px;
+    margin: 10px;
+    border-style: groove;
+}
 /*Header links*/
 header ul{
     list-style-type: none;
@@ -6,16 +33,28 @@ header ul{
 }
 
 header li {
-    display: inline;
-    padding-left: 5%;
-    padding-right: 5%;
+    display: table-cell;
+    width: 5%;
+    text-align: center;
+    border-style: double;
+    border-block-color: slategray;
     background-color: rgb(204, 204, 204);
+    box-shadow: 5px 5px 10px darkslategray;
 }
 
 header a{
-    color: #000;
+    text-decoration: none;
+    color:black;
 }
 
+/*h1 title formating*/
+h1 {
+    text-align: center;
+    background-color: lightblue;
+    border-style: double;
+    border-block-color: darkgray;
+    box-shadow: 5px 10px 10px darkslategray;
+}
 /*form Layout*/
 div.formLayout {
     display: grid;
@@ -23,11 +62,11 @@ div.formLayout {
     grid-gap: 5px;
 }
 
-div.formLayout label {
+div.formLayout label{
     text-align: right;
 }
 
-div.formLayout input {
+div.formLayout input{
     content: ":";
 }
 
@@ -47,8 +86,22 @@ div.formLayout input {
 /*Scroll box*/
 table.scroll-table{
     display:block;
-    height:150px;
+    height: 300px;
     overflow: auto;
+    margin-top: 10px;
+    background-color: darkslategray;
+    border: 2px groove black;
+    box-shadow: 5px 5px 5px darkslategray;
+}
+
+table th{
+    background-color: white;
+    border-style: ridge;
+    
+}
+table td {
+    background-color: white;
+    border-style: ridge;
 }
 /* Content-block layout
 div.content-block {

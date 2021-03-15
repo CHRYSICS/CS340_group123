@@ -1,4 +1,4 @@
-<h1>Applicants Page</h1>
+<h1>Applicants List</h1>
 
 <div class="insertForm">
     <h2>Add Applicant to Database:</h2>
@@ -36,62 +36,55 @@
 </div>
 {{#if applicants}}
 <div class="selectView">
-    <h2>Select Applicant:</h2>
-    <form id="filterApplicants" action="./applicants" method="GET">
-        <h3>Filter Selection:</h3>
-        <label for="filter">filter by:</label>
-        <select name="filtertype" id="filtertype" onchange="getInputType()">
-            <option value="firstName" selected="selected">first name</option>
-            <option value="lastName">last name</option>
-            <option value="email">email</option>
-            <option value="phone">phone</option>
-            <option value="address">address</option>
-            <option value="city">city</option>
-            <option value="state">state</option>
-            <option value="country">country</option>
-            <option value="zipCode">zipcode</option> 
-        </select>
-        <label for="input">Enter value:</label>
-        <input type="text" name="input" placeholder="text here">
-        <input type="submit" value="filter">
-        <a href="/applicants">Clear Filter</a>
-    </form>
-    
-    <table id="applicantTable" class="scroll-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>first name</th>
-                <th>last name</th>
-                <th>email</th>
-                <th>phone</th>
-                <th>address</th>
-                <th>city</th>
-                <th>state</th>
-                <th>country</th>
-                <th>zipcode</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each applicants}}
-            <tr id={{this.applicantID}}>
-                <td class="data">{{this.applicantID}}</td>
-                <td class="data">{{this.firstName}}</td>
-                <td class="data">{{this.lastName}}</td>
-                <td class="data">{{this.email}}</td>
-                <td class="data">{{this.phone}}</td>
-                <td class="data">{{this.address}}</td>
-                <td class="data">{{this.city}}</td>
-                <td class="data">{{this.state}}</td>
-                <td class="data">{{this.country}}</td>
-                <td class="data">{{this.zipCode}}</td>
-                <td><a href="/applicantInfo/{{this.applicantID}}">View Profile</a></td>
-                <td><a href="/applicantInfo/{{this.applicantID}}/update">Update</a></td>
-                <td><button onclick="deletePerson({{this.applicantID}})">Delete</button></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <h2>Select Applicant</h2>
+    <div>
+        <form id="filterApplicants" action="./applicants" method="GET">
+            <label for="filter">filter by:</label>
+            <select name="filtertype" id="filtertype" onchange="getInputType()">
+                <option value="firstName" selected="selected">first name</option>
+                <option value="lastName">last name</option>
+                <option value="email">email</option>
+                <option value="phone">phone</option>
+                <option value="address">address</option>
+                <option value="city">city</option>
+                <option value="state">state</option>
+                <option value="country">country</option>
+                <option value="zipCode">zipcode</option> 
+            </select>
+            <label for="input">Enter value:</label>
+            <input type="text" name="input" placeholder="text here">
+            <input type="submit" value="filter">
+            <a href="/applicants">Clear Filter</a>
+        </form>
+        
+        <table id="applicantTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>first name</th>
+                    <th>last name</th>
+                    <th>email</th>
+                    <th>phone</th>
+                    <th>address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each applicants}}
+                <tr id={{this.applicantID}}>
+                    <td class="data">{{this.applicantID}}</td>
+                    <td class="data">{{this.firstName}}</td>
+                    <td class="data">{{this.lastName}}</td>
+                    <td class="data">{{this.email}}</td>
+                    <td class="data">{{this.phone}}</td>
+                    <td class="data">{{this.address}} {{this.city}}, {{this.state}}<br>{{this.country}} {{this.zipCode}}</td>
+                    <td><a href="/applicantInfo/{{this.applicantID}}">View Profile</a></td>
+                    <td><a href="/applicantInfo/{{this.applicantID}}/update">Update</a></td>
+                    <td><button onclick="deletePerson({{this.applicantID}})">Delete</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 </div>
 {{/if}}
 <script src="/javascript/applicantsSearchInput.js"></script>

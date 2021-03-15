@@ -32,55 +32,48 @@
     </div>
 {{#if employers}}
 <div class ="selectView">
-    <h2>Select Employer:</h2>
-     <form id="filterEmployers" action="./employers" method="GET">
-        <h3>Filter By:</h3>
-        <label for="filter">filter by:</label>
-        <select name="filtertype" id="filtertype" onchange="getInputType()">
-            <option value="businessName" selected="selected">business name</option>
-            <option value="email">email</option>
-            <option value="phone">phone</option>
-            <option value="address">address</option>
-            <option value="city">city</option>
-            <option value="state">state</option>
-            <option value="country">country</option>
-            <option value="zipCode">zipcode</option>
-        </select>
-        <label for="input">Enter value:</label>
-        <input type="text" name="input" placeholder="text here">
-        <input type="submit" value="filter">
-        <a href="/employers">Clear Filter</a>
-    </form>
+    <h2>Select Employer</h2>
+    <div>
+        <form id="filterEmployers" action="./employers" method="GET">
+            <label for="filter">filter by:</label>
+            <select name="filtertype" id="filtertype" onchange="getInputType()">
+                <option value="businessName" selected="selected">business name</option>
+                <option value="email">email</option>
+                <option value="phone">phone</option>
+                <option value="address">address</option>
+                <option value="city">city</option>
+                <option value="state">state</option>
+                <option value="country">country</option>
+                <option value="zipCode">zipcode</option>
+            </select>
+            <label for="input">Enter value:</label>
+            <input type="text" name="input" placeholder="text here">
+            <input type="submit" value="filter">
+            <a href="/employers">Clear Filter</a>
+        </form>
 
-    <table id="employerTable">
-        <tr>
-            <th>Employer ID</th>
-            <th>Business Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>Zip Code</th>
-        </tr>
-        {{#each employers}}
-        <tr id={{this.employerID}}>
-            <td class="data">{{this.employerID}}</td>
-            <td class="data">{{this.businessName}}</td>
-            <td class="data">{{this.email}}</td>
-            <td class="data">{{this.phone}}</td>
-            <td class="data">{{this.address}}</td>
-            <td class="data">{{this.city}}</td>
-            <td class="data">{{this.state}}</td>
-            <td class="data">{{this.country}}</td>
-            <td class="data">{{this.zipCode}}</td>
-            <td><a href = "/employers/{{employerID}}">View Profile</a></td>
-            <td><a href = "/employers/{{employerID}}/update">Update</a></td> 
-            <td><button onclick = "deleteEmployer({{employerID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
+        <table id="employerTable">
+            <tr>
+                <th>Employer ID</th>
+                <th>Business Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+            {{#each employers}}
+            <tr id={{this.employerID}}>
+                <td class="data">{{this.employerID}}</td>
+                <td class="data">{{this.businessName}}</td>
+                <td class="data">{{this.email}}</td>
+                <td class="data">{{this.phone}}</td>
+                <td class="data">{{this.address}} {{this.city}}, {{this.state}}<br>{{this.country}} {{this.zipCode}}</td>
+                <td><a href = "/employers/{{employerID}}">View Profile</a></td>
+                <td><a href = "/employers/{{employerID}}/update">Update</a></td> 
+                <td><button onclick = "deleteEmployer({{employerID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>
 {{/if}}
 <script type="text/javascript">

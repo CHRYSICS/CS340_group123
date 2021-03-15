@@ -1,11 +1,14 @@
 <h1>{{info.firstName}} {{info.lastName}}</h1>
-<div id="info">
-    <h2>Applicants Info:</h2>
-    <ul>
-        <li>email: <span>{{info.email}}</span></li>
-        <li>phone: <span>{{info.phone}}</span></li>
-        <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
-    </ul>
+
+<div class="insertForm">
+    <h2>Applicants Info</h2>
+    <div>
+        <ul>
+            <li>email: <span>{{info.email}}</span></li>
+            <li>phone: <span>{{info.phone}}</span></li>
+            <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+        </ul>
+    </div>
     <td><a href="/applicantInfo/{{info.applicantID}}/update">Update</a></td>
 </div>
 <div>

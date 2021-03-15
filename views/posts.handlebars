@@ -2,52 +2,56 @@
 <div class = "insertForm">
 <h2>Add Post</h2>
     <form id="addPost" action = "./Posts" method = "POST">
-        <label for = "description">Description:</label>
-        <br>
-        <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
-        <br>
-        <label for = "employerID">Employer ID:</label>
-        <select name="employerID">
-            <option value="" hidden disabled selected>Existing Employer IDs...</option>
-            {{#each employers}}
-            <option value="{{this.employerID}}">{{this.businessName}}: ID {{this.employerID}}</option>
-            {{/each}}
-        </select>
+        <div class="formlayout">
+            <label for = "description">Description:</label>
+            <br>
+            <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
+            <br>
+            <label for = "employerID">Employer ID:</label>
+            <select name="employerID">
+                <option value="" hidden disabled selected>Existing Employer IDs...</option>
+                {{#each employers}}
+                <option value="{{this.employerID}}">{{this.businessName}}: ID {{this.employerID}}</option>
+                {{/each}}
+            </select>
+        </div>
         <input type = "submit" name="addButton" value="Add Post" id="addButton">
     </form>
+    
 </div>
 {{#if posts}}
 <div class ="selectPost">
-    <h2>Select Post:</h2>
-    <form id="filterPosts" action="/posts" method="GET">
-        <h3>Filter By:</h3>
-        <label for="filter">filter by:</label>
-        <select name="filter" id="filter">
-            <option value="postID" selected="selected">post ID</option>
-            <option value="description">description</option>
-            <option value="employerID">employer ID</option>
-        </select>
-        <label for="input">Enter value:</label>
-        <input type="text" name="input" placeholder="text here">
-        <input type="submit" value="filter">
-        <a href="/posts">Clear Filter</a>
-    </form>
-    <table id="postTable">
-        <tr>
-            <th>Post ID</th>
-            <th>Employer ID</th>
-            <th>Description</th>
-        </tr>
-        {{#each posts}}
-        <tr id={{this.employerID}}>
-            <td class="data">{{this.postID}}</td>
-            <td class="data">{{this.employerID}}</td>
-            <td class="data">{{this.description}}</td>
-            <td><a href = "/postInfo/{{postID}}">View Post</a></td>
-            <td><a href = "/posts/{{postID}}//update">Update</a></td>
-            <td><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
+    <h2>Select Post</h2>
+    <div>
+        <form id="filterPosts" action="/posts" method="GET">
+            <label for="filter">filter by:</label>
+            <select name="filter" id="filter">
+                <option value="postID" selected="selected">post ID</option>
+                <option value="description">description</option>
+                <option value="employerID">employer ID</option>
+            </select>
+            <label for="input">Enter value:</label>
+            <input type="text" name="input" placeholder="text here">
+            <input type="submit" value="filter">
+            <a href="/posts">Clear Filter</a>
+        </form>
+        <table id="postTable">
+            <tr>
+                <th>Post ID</th>
+                <th>Employer ID</th>
+                <th>Description</th>
+            </tr>
+            {{#each posts}}
+            <tr id={{this.employerID}}>
+                <td class="data">{{this.postID}}</td>
+                <td class="data">{{this.employerID}}</td>
+                <td class="data">{{this.description}}</td>
+                <td><a href = "/postInfo/{{postID}}">View Post</a></td>
+                <td><a href = "/posts/{{postID}}//update">Update</a></td>
+                <td><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>
 {{/if}}
