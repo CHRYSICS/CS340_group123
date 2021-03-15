@@ -14,10 +14,10 @@ module.exports = function () {
       if (!fs.existsSync(userDir)){
         fs.mkdirSync(userDir);
       }
+      console.log("Resume Saved To:", userDir + file.originalname);
       cb(null, userDir);
     },
     filename: function(req, file, cb){
-      console.log(file);
       cb(null, file.originalname);
     }
   });

@@ -16,6 +16,7 @@
         <input type="submit" value="upload">
     </form>
 </div>
+{{#if resumes}}
 <div>
     <h2>Filter Selection:</h2>
     <form id="searchResumes" action="/resumes" method="GET">
@@ -45,4 +46,5 @@
         {{/each}}
     </table>
 </div>
+{{/if}}
 <script src="/javascript/deleteResume.js"></script>

@@ -8,6 +8,16 @@
     </ul>
     <td><a href="/employers/{{employer.employerID}}/update">Update</a></td>
 </div>
+<h2>Add Post</h2>
+    <form id="addPost" action = "/employers/{{employer.employerID}}" method = "POST">
+        <label for = "description">Description:</label>
+        <br>
+        <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
+        <br>
+        <input type = "submit" name="addButton" value="Add Post" id="addButton">
+    </form>
+</div>
+{{#if posts}}
 <div id="posts">
     <table>
         <tr>
@@ -27,3 +37,4 @@
         {{/each}}
     </table>
 </div>
+{{/if}}

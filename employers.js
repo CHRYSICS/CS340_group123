@@ -123,7 +123,6 @@ module.exports = function()
 
     // Add an Employer
     router.post('/', function(req, res){
-        console.log(req.body);
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Employers (businessName, email, phone, address, city, state, country, zipCode) VALUES (?,?,?,?,?,?,?,?)";
         var inserts = [req.body.businessName, req.body.email, req.body.phone, req.body.address, req.body.city, req.body.state, req.body.country, req.body.zipCode];
@@ -154,6 +153,22 @@ module.exports = function()
         }
         getEmployer(res, mysql, context, id, complete);
         getEmployerPosts(res, mysql, context, id, complete);
+    });
+
+    // insert new post on employerinfo page
+    router.post('/:employerID', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "INSERT INTO Posts (description, employerID) VALUES (?,?)";
+        var inserts = [req.body.description, req.params.employerID];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(JSON.stringify(error));
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.redirect('./employers/'+req.params.employerID);
+            }
+        });
     });
 
     // Display employer for update

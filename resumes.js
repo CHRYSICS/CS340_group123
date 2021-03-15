@@ -203,13 +203,25 @@ module.exports = function () {
                         res.end();
                     }else{
                         // sucess in delete, remove actual file locations
-                        console.log('Deleting File: ./uploads/' + context.info.applicantID + '/' + context.info.fileName);
-                        fs.unlink('./uploads/' + context.info.applicantID + '/' + context.info.fileName, function(err) {
+                        var dirname = './uploads/' + context.info.applicantID;
+                        console.log('Deleting File: ' + dirname + '/' + context.info.fileName);
+                        fs.unlink(dirname + '/' + context.info.fileName, function(err) {
                             if (err){
                                 console.log('ERROR: ' + err);
                             } else{
                                 res.status(200);
                                 res.end();
+                            }
+                        });
+                        // check if folder for applicant is empty, delete if so
+                        fs.readdir(dirname, function(err, files){
+                            if(err){
+                                console.log('ERROR: ' + err);
+                            } else{
+                                if(!files.length){
+                                    console.log("Folder Empty: Deleting " + dirname);
+                                    fs.rmdirSync(dirname);
+                                }
                             }
                         });
                     }

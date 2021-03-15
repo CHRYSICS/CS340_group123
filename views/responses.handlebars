@@ -20,6 +20,7 @@
         <input type="submit" value="addResume">
     </form>
 </div>
+{{#if responses}}
 <div id="filterResponses">
     <h3>Filter Responses by either post ID or resumes ID</h3>
     <form action="/responses" method="GET">
@@ -50,4 +51,5 @@
         {{/each}}
     </table>
 </div>
+{{/if}}
 <script src="/javascript/deleteResponse.js"></script>

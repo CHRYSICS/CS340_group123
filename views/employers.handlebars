@@ -30,7 +30,7 @@
         <input type = "submit" name="addButton" value="Add Employer" id="addButton">
     </form>
     </div>
-
+{{#if employers}}
 <div class ="selectView">
     <h2>Select Employer:</h2>
      <form id="filterEmployers" action="./employers" method="GET">
@@ -82,7 +82,7 @@
         {{/each}}
     </table>
 </div>
-
+{{/if}}
 <script type="text/javascript">
     getInputType();
 </script>

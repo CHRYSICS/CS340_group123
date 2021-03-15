@@ -34,7 +34,7 @@
         <input type="submit" value="submit">
     </form>
 </div>
-
+{{#if applicants}}
 <div class="selectView">
     <h2>Select Applicant:</h2>
     <form id="filterApplicants" action="./applicants" method="GET">
@@ -93,7 +93,7 @@
         </tbody>
     </table>
 </div>
-
+{{/if}}
 <script src="/javascript/applicantsSearchInput.js"></script>
 <script src="/javascript/deleteApplicant.js"></script>
 <script type="text/javascript">

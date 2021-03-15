@@ -16,7 +16,7 @@
         <input type = "submit" name="addButton" value="Add Post" id="addButton">
     </form>
 </div>
-
+{{#if posts}}
 <div class ="selectPost">
     <h2>Select Post:</h2>
     <form id="filterPosts" action="/posts" method="GET">
@@ -32,22 +32,22 @@
         <input type="submit" value="filter">
         <a href="/posts">Clear Filter</a>
     </form>
-        <table id="postTable">
-            <tr>
-                <th>Post ID</th>
-                <th>Employer ID</th>
-                <th>Description</th>
-            </tr>
-            {{#each posts}}
-            <tr id={{this.employerID}}>
-                <td class="data">{{this.postID}}</td>
-                <td class="data">{{this.employerID}}</td>
-                <td class="data">{{this.description}}</td>
-                <td><a href = "/postInfo/{{postID}}">View Post</a></td>
-                <td><a href = "/posts/{{postID}}//update">Update</a></td>
-                <td><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
-            </tr>
-            {{/each}}
-        </table>
-    </div>
-
+    <table id="postTable">
+        <tr>
+            <th>Post ID</th>
+            <th>Employer ID</th>
+            <th>Description</th>
+        </tr>
+        {{#each posts}}
+        <tr id={{this.employerID}}>
+            <td class="data">{{this.postID}}</td>
+            <td class="data">{{this.employerID}}</td>
+            <td class="data">{{this.description}}</td>
+            <td><a href = "/postInfo/{{postID}}">View Post</a></td>
+            <td><a href = "/posts/{{postID}}//update">Update</a></td>
+            <td><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{/if}}
