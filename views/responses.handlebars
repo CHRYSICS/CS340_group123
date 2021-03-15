@@ -45,9 +45,9 @@
             <tr {{this.resumeID}}>
                 <td>{{this.postID}}</td>
                 <td>{{this.resumeID}}</td>
-                <td><a href = "/postInfo/{{this.postID}}">See Post Details</a></td>
-                <td><a href="/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
-                <td><button onclick="deleteResponse({{this.postID}}, {{this.resumeID}})">Delete</button></td>
+                <td class="cell_button"><a class="button_style" href = "/postInfo/{{this.postID}}">See Post Details</a></td>
+                <td class="cell_button"><a class="button_style" href="/applicantInfo/{{this.applicantID}}">See Applicant Details</a></td>
+                <td class="cell_button"><button onclick="deleteResponse({{this.postID}}, {{this.resumeID}})">Delete</button></td>
             </tr>
             {{/each}}
         </table>
