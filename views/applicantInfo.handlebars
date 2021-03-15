@@ -1,59 +1,58 @@
 <h1>{{info.firstName}} {{info.lastName}}</h1>
 
-<div class="insertForm">
-    <h2>Applicants Info</h2>
-    <div>
+<div>
+    <h2>Applicant Information</h2>
+    <div id="info">
         <ul>
-            <li>email: <span>{{info.email}}</span></li>
-            <li>phone: <span>{{info.phone}}</span></li>
-            <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+            <li>Email: <span>{{info.email}}</span></li>
+            <li>Phone: <span>{{info.phone}}</span></li>
+            <li>Address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
         </ul>
     </div>
-    <td><a href="/applicantInfo/{{info.applicantID}}/update">Update</a></td>
+    <a href="/applicantInfo/{{info.applicantID}}/update" class="button_style">Update</a>
 </div>
 <div>
-    <h2>Add Resume to Database:</h2>
-    <form id="addResume" action="/applicantInfo/{{info.applicantID}}" method="POST" enctype="multipart/form-data">
-        <label for="resume">File:</label>
-        <br>
-        <input type="file" name="resume" required>
-        <input type="submit" value="upload">
-    </form>
-</div>
-{{#if resumes}}
-<div>
-    <form id="searchResumes" action="/applicantInfo/{{info.applicantID}}" method="GET">
-        <h2>Filter Selection:</h2>
-        <label for="fileName">By File Name:</label>
-        <input type="text" name="fileName" placeholder="enter file name">
-        
-        <label for="order"><br> --or-- <br>Order by Resume ID:</label>
-        <select name="order">
-            <option value="" disabled selected>Select Order</option>
-            <option value="ASC">Ascending Order</option>
-            <option value="DESC">Descending Order</option>
-        </select>
-        <input type="submit" value="filter">
-    </form>
-</div>
-<div id="resumes">
-    <table>
-        <tr>
-            <th>resumeID</th>
-            <th>applicantID</th>
-            <th>fileName</th>
-        </tr>
-        {{#each resumes}}
-        <tr {{this.resumeID}}>
-            <td>{{this.resumeID}}</td>
-            <td>{{this.applicantID}}</td>
-            <td>{{this.fileName}}</td>
-            <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
-            <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
-            <td><button onclick="deleteResumeForApplicant({{this.resumeID}}, {{this.applicantID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
+    <h2>Add Resume</h2>
+    <div>
+        <form id="addResume" action="/applicantInfo/{{info.applicantID}}" method="POST" enctype="multipart/form-data">
+            <label for="resume">File:</label>
+            <input type="file" name="resume" required>
+            <input type="submit" value="upload">
+        </form>
+    </div>
+    {{#if resumes}}
+    <h2>Select Resume</h2>
+    <div>
+        <form id="searchResumes" action="/applicantInfo/{{info.applicantID}}" method="GET">
+            <label for="fileName">By File Name:</label>
+            <input type="text" name="fileName" placeholder="enter file name">
+            
+            <label for="order"><br> --or-- <br>Order by Resume ID:</label>
+            <select name="order">
+                <option value="" disabled selected>Select Order</option>
+                <option value="ASC">Ascending Order</option>
+                <option value="DESC">Descending Order</option>
+            </select>
+            <input type="submit" value="filter">
+        </form>
+        <table>
+            <tr>
+                <th>resumeID</th>
+                <th>applicantID</th>
+                <th>fileName</th>
+            </tr>
+            {{#each resumes}}
+            <tr {{this.resumeID}}>
+                <td>{{this.resumeID}}</td>
+                <td>{{this.applicantID}}</td>
+                <td>{{this.fileName}}</td>
+                <td class="cell_button"><a href="/resumes/{{this.resumeID}}/download" class="button_style">Download</a></td>
+                <td class="cell_button"><a href="/resumes/{{this.resumeID}}/update" class="button_style">Update</a></td>
+                <td class="cell_button"><button onclick="deleteResumeForApplicant({{this.resumeID}}, {{this.applicantID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>
 {{/if}}
 <script src="/javascript/deleteResume.js"></script>

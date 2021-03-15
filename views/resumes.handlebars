@@ -24,7 +24,7 @@
             <label for="fileName">By File Name:</label>
             <input type="text" name="fileName" placeholder="enter file name">
             <input type="submit" value="filter">
-            <a href="/resumes">Clear Filter</a>
+            <a class="button_style" href="/resumes">Clear Filter</a>
         </form>
         <table>
             <tr>
@@ -37,9 +37,9 @@
                 <td>{{this.resumeID}}</td>
                 <td>{{this.applicantID}}</td>
                 <td>{{this.fileName}}</td>
-                <td><a href = "/applicantInfo/{{this.applicantID}}">View Profile</a></td>
-                <td><a href="/resumes/{{this.resumeID}}/download">Download</a></td>
-                <td><a href="/resumes/{{this.resumeID}}/update">Update</a></td>
+                <td class="cell_button"><a class="button_style" href = "/applicantInfo/{{this.applicantID}}">View Profile</a></td>
+                <td class="cell_button"><a class="button_style" href="/resumes/{{this.resumeID}}/download">Download</a></td>
+                <td class="cell_button"><a class="button_style" href="/resumes/{{this.resumeID}}/update">Update</a></td>
                 <td><button onclick="deleteResume({{this.resumeID}})">Delete</button></td>
             </tr>
             {{/each}}

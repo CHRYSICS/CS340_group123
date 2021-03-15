@@ -1,53 +1,59 @@
 <h1>{{info.businessName}}</h1>
-<div id="info">
-    <h2>Post Info:</h2>
-    <ul>
-        <li>DESCRIPTION: <span>{{info.description}}</span></li>
-        <br>
-        <li>EMPLOYER CONTACT INFO</li>
-        <li>phone: <span>{{info.phone}}</span></li>
-        <li>address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
-        <li><a href="/employers/{{info.employerID}}">View Employer</a></li>
-    </ul>
-    <a href="/posts/{{info.postID}}/update">Update</a>
+
+<div>
+    <h2>Post Information</h2>
+    <div id="info">
+        <ul>
+            <li>DESCRIPTION: <span>{{info.description}}</span></li>
+            <br>
+            <i>
+            <li>Employer Contact Information</li>
+            <li>Phone: <span>{{info.phone}}</span></li>
+            <li>Address: <span>{{info.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+            </i>
+        </ul>
+        <a class="button_style" href="/employers/{{info.employerID}}">View Employer</a>
+    </div>
+    <a class="button_style" href="/posts/{{info.postID}}/update">Update</a>
 </div>
 <div>
-    <h2>Apply to Position:</h2>
-    <form action="/postInfo/{{info.postID}}" method="POST">
-        <label for="resumeID">Enter Resume ID:</label>
-        <select name="resumeID">
-            <option value="" hidden disabled selected>Resume IDs...</option>
-            {{#each resumes}}
-            <option value="{{this.resumeID}}">{{this.fileName}}: ID {{this.resumeID}}</option>
+    <h2>Apply to Position</h2>
+    <div>
+        <form action="/postInfo/{{info.postID}}" method="POST">
+            <label for="resumeID">Enter Resume ID:</label>
+            <select name="resumeID">
+                <option value="" hidden disabled selected>Resume IDs...</option>
+                {{#each resumes}}
+                <option value="{{this.resumeID}}">{{this.fileName}}: ID {{this.resumeID}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="addResume">
+        </form>
+    </div>
+    {{#if responses}}
+    <h2>Responses to Post</h2>
+    <div>
+        <form id="searchResponses" action="/postinfo/{{info.postID}}" method="GET">
+            <label for="idNum">Enter Resume ID number:</label>
+            <input type="number" name="idNum" placeholder="Enter ID Number">
+            <input type="submit" value="filter">
+            <a class="button_style" href="/postinfo/{{info.postID}}">Clear Filter</a>
+        </form>
+        <table>
+            <tr>
+                <th>postID</th>
+                <th>resumeID</th>
+            </tr>
+            {{#each responses}}
+            <tr {{this.resumeID}}>
+                <td>{{this.postID}}</td>
+                <td>{{this.resumeID}}</td>
+                <td class="cell_button"><a class="button_style" href="/resumes/{{this.resumeID}}/download">Download Resume</a></td>
+                <td class="cell_button"><button onclick="deleteResponseForPost({{this.postID}}, {{this.resumeID}})">Delete</button></td>
+            </tr>
             {{/each}}
-        </select>
-        <input type="submit" value="addResume">
-    </form>
+        </table>
+    </div>
+    {{/if}}
 </div>
-{{#if responses}}
-<div id="responses">
-    <h2>Responses to Post:</h2>
-    <h3>Filter Responses by resume ID</h3>
-    <form id="searchResponses" action="/postinfo/{{info.postID}}" method="GET">
-        <label for="idNum">Enter Resume ID number:</label>
-        <input type="number" name="idNum" placeholder="Enter ID Number">
-        <input type="submit" value="filter">
-        <a href="/postinfo/{{info.postID}}">Clear Filter</a>
-    </form>
-    <table>
-        <tr>
-            <th>postID</th>
-            <th>resumeID</th>
-        </tr>
-        {{#each responses}}
-        <tr {{this.resumeID}}>
-            <td>{{this.postID}}</td>
-            <td>{{this.resumeID}}</td>
-            <td><a href="/resumes/{{this.resumeID}}/download">Download Resume</a></td>
-            <td><button onclick="deleteResponseForPost({{this.postID}}, {{this.resumeID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
-{{/if}}
 <script src="/javascript/deleteResponse.js"></script>

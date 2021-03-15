@@ -1,6 +1,6 @@
 <h1>Job Listings</h1>
 <div class = "insertForm">
-<h2>Add Post</h2>
+    <h2>Add Post</h2>
     <form id="addPost" action = "./Posts" method = "POST">
         <div class="formlayout">
             <label for = "description">Description:</label>
@@ -17,7 +17,6 @@
         </div>
         <input type = "submit" name="addButton" value="Add Post" id="addButton">
     </form>
-    
 </div>
 {{#if posts}}
 <div class ="selectPost">
@@ -33,7 +32,7 @@
             <label for="input">Enter value:</label>
             <input type="text" name="input" placeholder="text here">
             <input type="submit" value="filter">
-            <a href="/posts">Clear Filter</a>
+            <a class="button_style" href="/posts">Clear Filter</a>
         </form>
         <table id="postTable">
             <tr>
@@ -46,9 +45,9 @@
                 <td class="data">{{this.postID}}</td>
                 <td class="data">{{this.employerID}}</td>
                 <td class="data">{{this.description}}</td>
-                <td><a href = "/postInfo/{{postID}}">View Post</a></td>
-                <td><a href = "/posts/{{postID}}//update">Update</a></td>
-                <td><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
+                <td class="cell_button"><a class="button_style" href = "/postInfo/{{postID}}">View Post</a></td>
+                <td class="cell_button"><a class="button_style" href = "/posts/{{postID}}//update">Update</a></td>
+                <td class="cell_button"><button onclick = "deletePost({{postID}})" class='delete'>Delete</button></td>
             </tr>
             {{/each}}
         </table>

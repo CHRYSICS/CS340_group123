@@ -54,7 +54,7 @@
             <label for="input">Enter value:</label>
             <input type="text" name="input" placeholder="text here">
             <input type="submit" value="filter">
-            <a href="/applicants">Clear Filter</a>
+            <a class="button_style" href="/applicants">Clear Filter</a>
         </form>
         
         <table id="applicantTable">
@@ -77,9 +77,9 @@
                     <td class="data">{{this.email}}</td>
                     <td class="data">{{this.phone}}</td>
                     <td class="data">{{this.address}} {{this.city}}, {{this.state}}<br>{{this.country}} {{this.zipCode}}</td>
-                    <td><a href="/applicantInfo/{{this.applicantID}}">View Profile</a></td>
-                    <td><a href="/applicantInfo/{{this.applicantID}}/update">Update</a></td>
-                    <td><button onclick="deletePerson({{this.applicantID}})">Delete</button></td>
+                    <td class="cell_button"><a href="/applicantInfo/{{this.applicantID}}" class="button_style">View Profile</a></td>
+                    <td class="cell_button"><a href="/applicantInfo/{{this.applicantID}}/update" class="button_style">Update</a></td>
+                    <td class="cell_button"><button onclick="deletePerson({{this.applicantID}})">Delete</button></td>
                 </tr>
                 {{/each}}
             </tbody>

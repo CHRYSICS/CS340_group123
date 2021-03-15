@@ -18,6 +18,10 @@ div{
 div div{
     background-color: cadetblue;
 }
+
+div div div {
+    background-color: lightgray;
+}
 h2 {
     background-color: lightblue;
     padding: 10px 5%;
@@ -71,12 +75,20 @@ div.formLayout input{
 }
 
 /*Info Layout*/
+#info ul {
+    padding: 5px 10px;
+    background-color:rgb(238, 238, 238);
+    border: 2px groove black;
+    box-shadow: 5px 5px 5px darkslategray;
+
+}
 #info li {
     display: grid;
     grid-template-columns: max-content max-content;
     grid-gap: 5px;
     list-style-type: none;
     text-align: right;
+    font-size: larger;
 }
 
 #info span {
@@ -103,9 +115,35 @@ table td {
     background-color: white;
     border-style: ridge;
 }
-/* Content-block layout
-div.content-block {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    grid-gap: 10%;
+
+table td.cell_button{
+    width:min-content;
+    height: min-content;
+    background-color: rgba(225,255,255, 0);
+    border-style: none;
+}
+
+/*links made to look like buttons*/
+a.button_style, button{
+    text-decoration: none; 
+    font: menu;
+    white-space: nowrap;
+    display: inline-block; 
+    padding: 0px 8px;
+    background: ButtonFace; 
+    color: ButtonText;
+    border-style: solid; 
+    border-width: 2px;
+    border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+}
+
+a.button_style:hover{
+    border-width:1px;
+    padding: 1px 9px;
+    border-color:dodgerblue;
+}
+
+/*list styling*/
+/* ul {
+    list-style-type: none;
 } */

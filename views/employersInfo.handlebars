@@ -1,40 +1,47 @@
 <h1>{{employer.businessName}}</h1>
-<div id="info">
+
+<div>
     <h2>Employers Info:</h2>
-    <ul>
-        <li>email: <span>{{employer.email}}</span></li>
-        <li>phone: <span>{{employer.phone}}</span></li>
-        <li>address: <span>{{employer.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
-    </ul>
-    <td><a href="/employers/{{employer.employerID}}/update">Update</a></td>
+    <div id="info">
+        <ul>
+            <li>email: <span>{{employer.email}}</span></li>
+            <li>phone: <span>{{employer.phone}}</span></li>
+            <li>address: <span>{{employer.address}}<br>{{info.city}}, {{info.state}} {{cinfo.zipCode}} {{info.country}}</span></li>
+        </ul>
+    </div>
+    <a class="button_style" href="/employers/{{employer.employerID}}/update">Update</a>
 </div>
-<h2>Add Post</h2>
-    <form id="addPost" action = "/employers/{{employer.employerID}}" method = "POST">
-        <label for = "description">Description:</label>
-        <br>
-        <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
-        <br>
-        <input type = "submit" name="addButton" value="Add Post" id="addButton">
-    </form>
+<div>
+    <h2>Add Post</h2>
+    <div>
+        <form id="addPost" action = "/employers/{{employer.employerID}}" method = "POST">
+            <label for = "description">Description:</label>
+            <br>
+            <textarea name="description" maxlength="150" placeholder="description" cols="50" rows="3" required></textarea>
+            <br>
+            <input type = "submit" name="addButton" value="Add Post" id="addButton">
+        </form>
+    </div>
+    {{#if posts}}
+    <h2>Select Post</h2>
+    <div>
+        <table>
+            <tr>
+                <th>Post ID</th>
+                <th>Employer ID</th>
+                <th>Description</th>
+            </tr>
+            {{#each posts}}
+            <tr id={{this.employerID}}>
+                <td class="data">{{this.postID}}</td>
+                <td class="data">{{this.employerID}}</td>
+                <td class="data">{{this.description}}</td>
+                <td class="cell_button"><a class="button_style" href="/postInfo/{{this.postID}}">View Post</a></td>
+                <td class="cell_button"><a class="button_style"  href="/posts/{{this.postID}}/update">Update</a></td>
+                <td class="cell_button"><button onclick="deletePost({{this.postID}})" class="delete">Delete</button></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    {{/if}}
 </div>
-{{#if posts}}
-<div id="posts">
-    <table>
-        <tr>
-            <th>Post ID</th>
-            <th>Employer ID</th>
-            <th>Description</th>
-        </tr>
-        {{#each posts}}
-        <tr id={{this.employerID}}>
-            <td class="data">{{this.postID}}</td>
-            <td class="data">{{this.employerID}}</td>
-            <td class="data">{{this.description}}</td>
-            <td><a href="/postInfo/{{this.postID}}">View Post</a></td>
-            <td><a href="/posts/{{this.postID}}/update">Update</a></td>
-            <td><button onclick="deletePost({{this.postID}})" class="delete">Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
-{{/if}}
